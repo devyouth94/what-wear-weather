@@ -39,7 +39,7 @@ const RegisterForm = ({ handleSubmit, handleConfirmData }: Props) => {
               ),
           })}
         />
-        {errors.userId && <small>{errors.userId.message}</small>}
+        {errors.userId && <small role="alert">{errors.userId.message}</small>}
       </div>
 
       <div>
@@ -62,7 +62,7 @@ const RegisterForm = ({ handleSubmit, handleConfirmData }: Props) => {
               ),
           })}
         />
-        {errors.nickname && <small>{errors.nickname.message}</small>}
+        {errors.nickname && <small role="alert">{errors.nickname.message}</small>}
       </div>
 
       <div>
@@ -80,7 +80,7 @@ const RegisterForm = ({ handleSubmit, handleConfirmData }: Props) => {
             minLength: { value: 8, message: '비밀번호는 8자 이상입니다.' },
           })}
         />
-        {errors.password && <small>{errors.password.message}</small>}
+        {errors.password && <small role="alert">{errors.password.message}</small>}
       </div>
 
       <div>
@@ -94,7 +94,7 @@ const RegisterForm = ({ handleSubmit, handleConfirmData }: Props) => {
             validate: (value) => value === getValues('password') || '비밀번호가 일치하지 않습니다.',
           })}
         />
-        {errors.confirmPassword && <small>{errors.confirmPassword.message}</small>}
+        {errors.confirmPassword && <small role="alert">{errors.confirmPassword.message}</small>}
       </div>
 
       <button type="submit" disabled={isSubmitting}>
