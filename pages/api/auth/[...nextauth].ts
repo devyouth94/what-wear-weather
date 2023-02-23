@@ -36,7 +36,7 @@ export default NextAuth({
   },
   callbacks: {
     session: ({ session, token }: { session: any; token: JWT }) => {
-      session.user.id = token.sub;
+      session.user.userId = token.sub;
       return session;
     },
   },

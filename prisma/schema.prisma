@@ -17,6 +17,23 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  posts         Post[]
+}
+
+model Post {
+  id String @id @default(uuid())
+  region String
+  temp_now Int
+  temp_feels Int
+  temp_min Int
+  temp_max Int
+  image String
+  description String
+  userId String
+  user User @relation(fields: [userId], references: [id] , onDelete: Cascade)
+  createdAt String
+
+  @@index([userId])
 }
 
 model Account {

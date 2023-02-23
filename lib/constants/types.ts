@@ -37,3 +37,18 @@ export type CityName = {
   en: string;
   ko: string;
 };
+
+export type SubmitData = {
+  description: string;
+  image: FileList;
+};
+
+export type PostData = {
+  region: string;
+  temp_now: number;
+  temp_feels: number;
+  temp_min: number;
+  temp_max: number;
+  description: string;
+  image: File;
+};
