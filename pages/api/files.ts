@@ -86,6 +86,48 @@ handler.post(files.single('image'), async (req, res) => {
   }
 });
 
+handler.get(async (req, res) => {
+  const session: any = await getSession({ req });
+  const userId = session.user.userId;
+  const { min, max } = req.query;
+
+  if (min && max) {
+    try {
+      const searchedPosts = await prisma.post.findMany({
+        where: {
+          userId,
+          temp_now: {
+            gte: Number(min),
+            lte: Number(max),
+          },
+        },
+        orderBy: {
+          createdAt: 'desc',
+        },
+      });
+
+      res.status(200).json({ result: searchedPosts, message: 'Get Successful!', ok: true });
+    } catch (error) {
+      res.status(500).json({ message: 'Prisma Error', ok: false });
+    }
+  }
+
+  try {
+    const posts = await prisma.post.findMany({
+      where: {
+        userId,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    res.status(200).json({ result: posts, message: 'Get Successful!', ok: true });
+  } catch (error) {
+    res.status(500).json({ message: 'Prisma Error', ok: false });
+  }
+});
+
 export const config = {
   api: {
     bodyParser: false,
