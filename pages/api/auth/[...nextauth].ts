@@ -35,8 +35,23 @@ export default NextAuth({
     strategy: 'jwt',
   },
   callbacks: {
+    jwt: async ({ token }) => {
+      const data = await prisma.user.findUnique({
+        where: {
+          id: token.sub,
+        },
+        select: {
+          name: true,
+        },
+      });
+      token.name = data && data.name;
+
+      return token;
+    },
     session: ({ session, token }: { session: any; token: JWT }) => {
       session.user.userId = token.sub;
+      session.user.name = token.name;
+
       return session;
     },
   },
