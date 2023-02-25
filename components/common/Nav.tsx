@@ -4,7 +4,7 @@ const Nav = () => {
   const { push } = useRouter();
 
   return (
-    <nav className="fixed bottom-0 left-0 flex justify-between items-center w-full h-[60px] px-10 bg-slate-500">
+    <nav className="fixed bottom-0 w-full md:w-[375px] md:translate-x-1/2 h-[60px] flex gap-3 justify-center items-center bg-neutral-300">
       <button onClick={() => push('/main')}>홈</button>
       <button onClick={() => push('/mypage')}>마이페이지</button>
     </nav>
