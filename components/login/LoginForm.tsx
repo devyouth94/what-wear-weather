@@ -1,54 +1,57 @@
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
+import { Collapse, Input, useDisclosure } from '@chakra-ui/react';
+import { FormControl, FormErrorMessage, FormLabel } from '@chakra-ui/react';
+
+import EmailButton from '@/components/login/EmailButton';
+import KakaoButton from '@/components/login/KakaoButton';
+import NaverButton from '@/components/login/NaverButton';
 import type { LoginData } from '@/lib/constants/types';
 
 const LoginForm = () => {
+  const { isOpen, onOpen } = useDisclosure();
+
   const {
     register,
     formState: { errors, isSubmitting },
     handleSubmit: onSubmit,
-  } = useForm<LoginData>({ defaultValues: { email: '' } });
+  } = useForm<LoginData>({ defaultValues: { email: '' }, reValidateMode: 'onSubmit' });
 
   const handleSubmit = (data: LoginData) => {
     signIn('email', { email: data.email, callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/main` });
   };
 
-  const handleClickKakao = () => {
-    signIn('kakao', { callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/main` });
-  };
-
-  const handleClickNaver = () => {
-    signIn('naver', { callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/main` });
-  };
-
   return (
-    <>
-      <form onSubmit={onSubmit(handleSubmit)}>
-        <div>
-          <label htmlFor="email">아이디</label>
-          <input
-            id="email"
-            type="text"
-            placeholder="이메일을 입력해주세요."
-            {...register('email', {
-              required: '이메일은 필수 항목입니다.',
-              pattern: {
-                value: /^[^@\s]+@[^@\s]+\.[^@\s]+$/,
-                message: '이메일 형식이 아닙니다.',
-              },
-            })}
-          />
-          {errors.email && <small role="alert">{errors.email.message}</small>}
-        </div>
-        <button type="submit" disabled={isSubmitting}>
-          이메일로 로그인하기
-        </button>
-      </form>
+    <div className="w-full mt-10">
+      <Collapse in={isOpen} animateOpacity>
+        <form className="mx-[1px]" id="login-form" onSubmit={onSubmit(handleSubmit)}>
+          <FormControl isInvalid={!!errors.email}>
+            <FormLabel htmlFor="email">아이디</FormLabel>
+            <Input
+              id="email"
+              type="text"
+              placeholder="이메일을 입력해주세요."
+              {...register('email', {
+                required: true,
+                pattern: {
+                  value: /^[^@\s]+@[^@\s]+\.[^@\s]+$/,
+                  message: '이메일 형식이 아닙니다.',
+                },
+              })}
+            />
+            <FormErrorMessage className="mb-1">
+              {errors.email && errors.email.message}
+            </FormErrorMessage>
+          </FormControl>
+        </form>
+      </Collapse>
 
-      <button onClick={handleClickKakao}>카카오 로그인</button>
+      <EmailButton isOpen={isOpen} onOpen={onOpen} isSubmitting={isSubmitting} />
 
-      <button onClick={handleClickNaver}>네이버 로그인</button>
-    </>
+      <KakaoButton />
+
+      <NaverButton />
+    </div>
   );
 };
 

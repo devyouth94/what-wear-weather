@@ -1,8 +1,5 @@
-export type RegisterData = {
-  userId: string;
-  nickname: string;
-  password: string;
-  confirmPassword: string;
+export type LoginData = {
+  email: string;
 };
 
 export type Location = {
