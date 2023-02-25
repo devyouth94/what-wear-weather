@@ -20,6 +20,7 @@ import { useForm } from 'react-hook-form';
 import PreviewImage from '@/components/main/PreviewImage';
 import type { SubmitData } from '@/lib/constants/types';
 import usePostFile from '@/hooks/main/usePostFile';
+import Nav from '@/components/common/Nav';
 
 const Main = () => {
   const { push } = useRouter();
@@ -147,6 +148,8 @@ const Main = () => {
             </div>
           ))}
       </div>
+
+      <Nav />
     </>
   );
 };
