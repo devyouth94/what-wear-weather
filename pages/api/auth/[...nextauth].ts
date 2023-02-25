@@ -42,15 +42,18 @@ export default NextAuth({
         },
         select: {
           name: true,
+          image: true,
         },
       });
       token.name = data && data.name;
+      token.picture = data && data.image;
 
       return token;
     },
     session: ({ session, token }: { session: any; token: JWT }) => {
       session.user.userId = token.sub;
       session.user.name = token.name;
+      session.user.image = token.picture;
 
       return session;
     },

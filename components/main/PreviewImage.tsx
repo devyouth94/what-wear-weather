@@ -1,20 +1,24 @@
 import { useEffect, useState } from 'react';
 import { UseFormWatch } from 'react-hook-form';
-import type { SubmitData } from '@/lib/constants/types';
 
 type Props = {
-  watch: UseFormWatch<SubmitData>;
+  watch: UseFormWatch<any>;
+  initialImg?: string;
 };
 
-const PreviewImage = ({ watch }: Props) => {
+const PreviewImage = ({ watch, initialImg }: Props) => {
   const file = watch('image');
 
-  const [prevImg, setPrevImg] = useState('');
+  const [prevImg, setPrevImg] = useState(initialImg || '');
 
   useEffect(() => {
     if (!file || !file.length) return;
 
     setPrevImg(URL.createObjectURL(file[0]));
+
+    return () => {
+      setPrevImg('');
+    };
   }, [file]);
 
   return <div>{prevImg && <img src={prevImg} />}</div>;
