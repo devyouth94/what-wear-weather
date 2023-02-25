@@ -1,14 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
-import multer from 'multer';
-import multerS3 from 'multer-s3';
-import { S3Client } from '@aws-sdk/client-s3';
 import { getSession } from 'next-auth/react';
 import { PrismaClient } from '@prisma/client';
+import { imageUpload } from '@/lib/utils/imageUpload';
 
 interface ExtendedRequest extends NextApiRequest {
   file: {
-    location: string;
+    Location: string;
   };
 }
 
@@ -23,30 +21,7 @@ const handler = nextConnect<ExtendedRequest, NextApiResponse>({
   },
 });
 
-const files = multer({
-  storage: multerS3({
-    s3: new S3Client({
-      credentials: {
-        accessKeyId: String(process.env.ACCESS_KEY_ID),
-        secretAccessKey: String(process.env.SECRET_ACCESS_KEY),
-      },
-      region: 'ap-northeast-2',
-    }),
-    bucket: String(process.env.BUCKET_NAME),
-    key(_, file, callback) {
-      const date = String(
-        new Intl.DateTimeFormat('ko-KR', {
-          timeZone: 'Asia/Seoul',
-          dateStyle: 'long',
-          timeStyle: 'short',
-        }).format(new Date()),
-      );
-      callback(null, `original/${date}_${file.originalname}`);
-    },
-  }),
-});
-
-handler.post(files.single('image'), async (req, res) => {
+handler.post(imageUpload('original').single('image'), async (req, res) => {
   const session: any = await getSession({ req });
   const userId = session.user.userId;
 
@@ -65,18 +40,11 @@ handler.post(files.single('image'), async (req, res) => {
         temp_feels: Number(temp_feels),
         temp_max: Number(temp_max),
         temp_min: Number(temp_min),
-        image: image.location,
+        image: image.Location,
         description: description,
         user: {
           connect: { id: userId },
         },
-        createdAt: String(
-          new Intl.DateTimeFormat('ko-KR', {
-            timeZone: 'Asia/Seoul',
-            dateStyle: 'long',
-            timeStyle: 'short',
-          }).format(new Date()),
-        ),
       },
     });
 
