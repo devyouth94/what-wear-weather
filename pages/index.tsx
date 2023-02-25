@@ -1,3 +1,9 @@
+import FullLogo from '@/components/common/FullLogo';
+
 export default function Home() {
-  return <main>index</main>;
+  return (
+    <main>
+      <FullLogo />
+    </main>
+  );
 }
