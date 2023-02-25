@@ -31,7 +31,7 @@ model Post {
   description String
   userId String
   user User @relation(fields: [userId], references: [id] , onDelete: Cascade)
-  createdAt String
+  createdAt DateTime @default(now())
 
   @@index([userId])
 }

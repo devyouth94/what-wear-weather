@@ -1,6 +1,10 @@
+import Nav from '@/components/common/Nav';
 import NicknameModal from '@/components/mypage/NicknameModal';
+import ProfileImgModal from '@/components/mypage/ProfileImgModal';
+import SettingDrawer from '@/components/mypage/SettingDrawer';
 import useGetPosts from '@/hooks/mypage/useGetPosts';
 import useGetPostsBySearch from '@/hooks/mypage/useGetPostsBySearch';
+import { longNowTime } from '@/lib/utils/timeCalculate';
 import { useModalActions } from '@/store/useModalStore';
 import {
   Avatar,
@@ -21,7 +25,7 @@ import {
   Tabs,
   Text,
 } from '@chakra-ui/react';
-import { signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 
 const Mypage = () => {
@@ -35,12 +39,16 @@ const Mypage = () => {
   return (
     <>
       {userData && <NicknameModal nickname={String(userData.user?.name)} />}
+      {userData && <ProfileImgModal initialImg={String(userData.user?.image)} />}
+
+      <SettingDrawer />
 
       <Avatar size="xl" name={userData?.user?.name || ''} src={userData?.user?.image || ''} />
+      <button onClick={() => changeModalState('profileImg')}>프로필 이미지 변경</button>
       <span>{userData?.user?.name}</span>
       <button onClick={() => changeModalState('nickname')}>닉네임 변경</button>
 
-      <button onClick={() => signOut()}>로그아웃</button>
+      <button onClick={() => changeModalState('setting')}>설정</button>
 
       <Tabs isFitted variant="enclosed">
         <TabList mb="1rem">
@@ -55,7 +63,7 @@ const Mypage = () => {
                 postData.map((post) => (
                   <Card key={post.id}>
                     <CardHeader>
-                      <Heading size="sm">{post.createdAt}</Heading>
+                      <Heading size="sm">{longNowTime(post.createdAt)}</Heading>
                     </CardHeader>
                     <CardBody>
                       <Image
@@ -122,6 +130,8 @@ const Mypage = () => {
           </TabPanel>
         </TabPanels>
       </Tabs>
+
+      <Nav />
     </>
   );
 };
