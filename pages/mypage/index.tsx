@@ -1,135 +1,50 @@
-import Nav from '@/components/common/Nav';
-import NicknameModal from '@/components/mypage/NicknameModal';
+import type { GetServerSideProps } from 'next';
+import { useSession } from 'next-auth/react';
+import { getToken } from 'next-auth/jwt';
+
+import NicknameModal from '@/components/common/NicknameModal';
 import ProfileImgModal from '@/components/mypage/ProfileImgModal';
 import SettingDrawer from '@/components/mypage/SettingDrawer';
-import useGetPosts from '@/hooks/mypage/useGetPosts';
-import useGetPostsBySearch from '@/hooks/mypage/useGetPostsBySearch';
-import { longNowTime } from '@/lib/utils/timeCalculate';
+
+import Layout from '@/components/common/Layout';
+import UserInfo from '@/components/mypage/UserInfo';
+import FilterButton from '@/components/mypage/FilterButton';
+import PostByRecent from '@/components/mypage/PostByRecent';
+import PostByTemp from '@/components/mypage/PostByTemp';
+import Nav from '@/components/common/Nav';
+
+import useFilterState from '@/hooks/mypage/useFilterState';
+import { IconSetting } from '@/static/Icons';
 import { useModalActions } from '@/store/useModalStore';
-import {
-  Avatar,
-  Card,
-  CardBody,
-  CardHeader,
-  Heading,
-  Image,
-  RangeSlider,
-  RangeSliderFilledTrack,
-  RangeSliderThumb,
-  RangeSliderTrack,
-  SimpleGrid,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Text,
-} from '@chakra-ui/react';
-import { useSession } from 'next-auth/react';
-import { useState } from 'react';
 
 const Mypage = () => {
-  const [value, setValue] = useState([-20, 40]);
   const { data: userData } = useSession();
-  const { data: postData, status: postStatus } = useGetPosts();
-  const { data: searchData, status: searchStatus, refetch } = useGetPostsBySearch(value);
 
   const { changeModalState } = useModalActions();
+  const { filter, handleFilter } = useFilterState();
 
   return (
     <>
       {userData && <NicknameModal nickname={String(userData.user?.name)} />}
       {userData && <ProfileImgModal initialImg={String(userData.user?.image)} />}
-
       <SettingDrawer />
 
-      <Avatar size="xl" name={userData?.user?.name || ''} src={userData?.user?.image || ''} />
-      <button onClick={() => changeModalState('profileImg')}>프로필 이미지 변경</button>
-      <span>{userData?.user?.name}</span>
-      <button onClick={() => changeModalState('nickname')}>닉네임 변경</button>
+      <Layout className="pt-5 pb-24">
+        <IconSetting
+          onClick={() => changeModalState('setting')}
+          className="absolute top-5 right-5 w-5 cursor-pointer"
+        />
 
-      <button onClick={() => changeModalState('setting')}>설정</button>
+        {userData && (
+          <UserInfo nickname={String(userData.user?.name)} image={String(userData.user?.image)} />
+        )}
 
-      <Tabs isFitted variant="enclosed">
-        <TabList mb="1rem">
-          <Tab>최신순</Tab>
-          <Tab>온도별 검색하기</Tab>
-        </TabList>
+        <FilterButton filter={filter} handleFilter={handleFilter} />
 
-        <TabPanels>
-          <TabPanel>
-            <SimpleGrid spacing={4} templateColumns="repeat(2, 1fr)">
-              {postStatus === 'success' &&
-                postData.map((post) => (
-                  <Card key={post.id}>
-                    <CardHeader>
-                      <Heading size="sm">{longNowTime(post.createdAt)}</Heading>
-                    </CardHeader>
-                    <CardBody>
-                      <Image
-                        objectFit="cover"
-                        src={post.image}
-                        minWidth="full"
-                        minHeight="300px"
-                        maxHeight="300px"
-                        borderRadius="sm"
-                      />
-                      <Heading>{post.temp_now}&#8451;</Heading>
-                      <Text>체감 온도 {post.temp_feels}&#8451;</Text>
-                      <Text>최저 온도 {post.temp_min}&#8451;</Text>
-                      <Text>최고 온도 {post.temp_max}&#8451;</Text>
-                    </CardBody>
-                  </Card>
-                ))}
-            </SimpleGrid>
-          </TabPanel>
-          <TabPanel>
-            <div>
-              {value[0]}&#8451; ~ {value[1]}&#8451;
-            </div>
+        {filter === '최신순' && <PostByRecent />}
 
-            <RangeSlider
-              defaultValue={[-20, 40]}
-              min={-20}
-              max={40}
-              step={1}
-              onChangeEnd={(value) => setValue(value)}>
-              <RangeSliderTrack>
-                <RangeSliderFilledTrack />
-              </RangeSliderTrack>
-              <RangeSliderThumb boxSize={4} index={0} />
-              <RangeSliderThumb boxSize={4} index={1} />
-            </RangeSlider>
-
-            <button onClick={() => refetch()}>검색</button>
-
-            <SimpleGrid spacing={4} templateColumns="repeat(2, 1fr)">
-              {searchStatus === 'success' &&
-                searchData.map((post) => (
-                  <Card key={post.id}>
-                    <CardHeader>
-                      <Heading size="sm">{post.createdAt}</Heading>
-                    </CardHeader>
-                    <CardBody>
-                      <Image
-                        objectFit="cover"
-                        src={post.image}
-                        minWidth="full"
-                        minHeight="300px"
-                        maxHeight="300px"
-                        borderRadius="sm"
-                      />
-                      <Heading>{post.temp_now}&#8451;</Heading>
-                      <Text>체감 온도 {post.temp_feels}&#8451;</Text>
-                      <Text>최저 온도 {post.temp_min}&#8451;</Text>
-                      <Text>최고 온도 {post.temp_max}&#8451;</Text>
-                    </CardBody>
-                  </Card>
-                ))}
-            </SimpleGrid>
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+        {filter === '온도별 검색하기' && <PostByTemp />}
+      </Layout>
 
       <Nav />
     </>
@@ -137,3 +52,20 @@ const Mypage = () => {
 };
 
 export default Mypage;
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const token = await getToken({ req });
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
