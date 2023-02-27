@@ -9,7 +9,9 @@ import prisma from '@/lib/utils/prismadb';
 
 export default NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
+
   adapter: PrismaAdapter(prisma),
+
   providers: [
     EmailProvider({
       server: {
@@ -31,9 +33,11 @@ export default NextAuth({
       clientSecret: String(process.env.NAVER_CLIENT_SECRET),
     }),
   ],
+
   session: {
     strategy: 'jwt',
   },
+
   callbacks: {
     jwt: async ({ token }) => {
       const data = await prisma.user.findUnique({
@@ -58,6 +62,7 @@ export default NextAuth({
       return session;
     },
   },
+
   pages: {
     signIn: '/login',
   },

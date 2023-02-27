@@ -1,7 +1,7 @@
-import { PrismaClient } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 import nextConnect from 'next-connect';
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -17,6 +17,10 @@ const handler = nextConnect<NextApiRequest, NextApiResponse>({
 handler.post(async (req, res) => {
   const session: any = await getSession({ req });
   const userId = session.user.userId;
+
+  if (!userId) {
+    return res.status(401).json({ message: 'Unauthorized', ok: false });
+  }
 
   const { nickname } = req.body;
 
