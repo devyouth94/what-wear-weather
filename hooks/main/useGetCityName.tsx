@@ -5,7 +5,7 @@ import type { CityName, Location } from '@/lib/constants/types';
 
 export const getCityName = async (lat: number, lon: number): Promise<CityName> => {
   const { data } = await axios.get(
-    `http://api.openweathermap.org/geo/1.0/reverse?appid=${process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY}&lat=${lat}&lon=${lon}`,
+    `https://api.openweathermap.org/geo/1.0/reverse?appid=${process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY}&lat=${lat}&lon=${lon}`,
   );
 
   return {
