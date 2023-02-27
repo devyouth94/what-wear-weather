@@ -1,5 +1,6 @@
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { UseFormWatch } from 'react-hook-form';
+import type { UseFormWatch } from 'react-hook-form';
 
 type Props = {
   watch: UseFormWatch<any>;
@@ -15,13 +16,17 @@ const PreviewImage = ({ watch, initialImg }: Props) => {
     if (!file || !file.length) return;
 
     setPrevImg(URL.createObjectURL(file[0]));
-
-    return () => {
-      setPrevImg('');
-    };
   }, [file]);
 
-  return <div>{prevImg && <img src={prevImg} />}</div>;
+  return (
+    <>
+      {prevImg && (
+        <div className="relative w-full min-h-[400px]">
+          <Image className="rounded-md object-cover" src={prevImg} alt={prevImg} fill />
+        </div>
+      )}
+    </>
+  );
 };
 
 export default PreviewImage;
