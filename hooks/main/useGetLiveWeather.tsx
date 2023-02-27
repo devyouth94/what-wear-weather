@@ -1,5 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
+
 import type { LiveWeather, Location } from '@/lib/constants/types';
 import { changeInteger } from '@/lib/utils/changeInteger';
 import { shortNowTime } from '@/lib/utils/timeCalculate';

@@ -1,5 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
+
 import type { CityName, Location } from '@/lib/constants/types';
 
 export const getCityName = async (lat: number, lon: number): Promise<CityName> => {

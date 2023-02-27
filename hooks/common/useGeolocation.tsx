@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+
 import type { Location } from '@/lib/constants/types';
 
 const useGeolocation = () => {
@@ -26,11 +27,6 @@ const useGeolocation = () => {
     });
   };
 
-  const handleNewLocation = () => {
-    setLocation((prev) => ({ ...prev, loaded: false }));
-    navigator.geolocation.getCurrentPosition(onSuccess, onError);
-  };
-
   useEffect(() => {
     if (!('geolocation' in navigator)) {
       onError({
@@ -42,7 +38,7 @@ const useGeolocation = () => {
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
   }, []);
 
-  return { location, handleNewLocation };
+  return { location };
 };
 
 export default useGeolocation;
