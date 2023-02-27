@@ -32,7 +32,7 @@ const Mypage = () => {
       <Layout className="pt-5 pb-24">
         <IconSetting
           onClick={() => changeModalState('setting')}
-          className="absolute top-5 right-5 w-5 cursor-pointer"
+          className="absolute top-5 right-5 w-5 cursor-pointer z-10"
         />
 
         {userData && (
