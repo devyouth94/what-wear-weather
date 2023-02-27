@@ -6,13 +6,11 @@ import AWS from 'aws-sdk';
 import multer from 'multer';
 import s3Storage from 'multer-sharp-s3';
 
-AWS.config.update({
+const s3 = new AWS.S3({
   accessKeyId: String(process.env.ACCESS_KEY_ID),
   secretAccessKey: String(process.env.SECRET_ACCESS_KEY),
   region: 'ap-northeast-2',
 });
-
-const s3 = new AWS.S3();
 
 export const imageUpload = (path: 'original' | 'profile') => {
   return multer({
@@ -32,4 +30,16 @@ export const imageUpload = (path: 'original' | 'profile') => {
       flop: false,
     }),
   });
+};
+
+export const imageDelete = (Key: string) => {
+  return s3.deleteObject(
+    {
+      Bucket: String(process.env.BUCKET_NAME),
+      Key,
+    },
+    (error, data) => {
+      console.log(data);
+    },
+  );
 };
