@@ -26,13 +26,13 @@ const LoginForm = () => {
       <Collapse in={isOpen} animateOpacity>
         <form className="mx-[1px]" id="login-form" onSubmit={onSubmit(handleSubmit)}>
           <FormControl isInvalid={!!errors.email}>
-            <FormLabel htmlFor="email">아이디</FormLabel>
+            <FormLabel htmlFor="email">이메일</FormLabel>
             <Input
               id="email"
               type="text"
               placeholder="이메일을 입력해주세요."
               {...register('email', {
-                required: true,
+                required: '이메일은 필수 입력입니다.',
                 pattern: {
                   value: /^[^@\s]+@[^@\s]+\.[^@\s]+$/,
                   message: '이메일 형식이 아닙니다.',
