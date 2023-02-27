@@ -1,6 +1,7 @@
+import { useMutation } from '@tanstack/react-query';
+
 import { PostData } from '@/lib/constants/types';
 import instance from '@/lib/utils/instance';
-import { useMutation } from '@tanstack/react-query';
 
 const postFile = async (file: PostData) => {
   const formData = new FormData();
