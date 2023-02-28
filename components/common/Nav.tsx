@@ -5,7 +5,7 @@ const className = `
   fixed bottom-0
   flex justify-center items-baseline
   w-full min-w-[375px] h-[75px]
-  md:w-[375px] md:left-1/2 md:-translate-x-1/2
+  sm:w-[375px] sm:left-1/2 sm:-translate-x-1/2
   bg-transparent
   z-20
 `;

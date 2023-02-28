@@ -15,7 +15,7 @@ const Layout = ({ children, className, style }: Props) => {
     <AnimatePresence mode="wait">
       <main
         style={style}
-        className="w-full min-w-[375px] md:absolute md:w-[375px] md:left-1/2 md:-translate-x-1/2 px-5 bg-neutral-100 cursor-default">
+        className="w-full min-w-[375px] sm:absolute sm:w-[375px] sm:left-1/2 sm:-translate-x-1/2 px-5 bg-neutral-100 cursor-default">
         <motion.div
           key={route}
           initial={{ opacity: 0 }}
