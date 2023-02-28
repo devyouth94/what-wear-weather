@@ -11,6 +11,10 @@ type Props = {
 };
 
 const PostCard = ({ post, handleSelected, isToday }: Props) => {
+  const now = longNowTime(post.createdAt).split('일');
+  const date = `${now[0]}일`;
+  const time = now[1];
+
   return (
     <motion.div
       key={post.id}
@@ -27,9 +31,10 @@ const PostCard = ({ post, handleSelected, isToday }: Props) => {
         {post.temp_now}&#8451;
       </motion.span>
 
-      <motion.span className="absolute bottom-4 right-4 w-[100px] text-right text-white text-xs font-bold z-20">
-        {longNowTime(post.createdAt)}
-      </motion.span>
+      <motion.p className="absolute bottom-4 right-4 flex flex-col items-end text-white text-xs font-bold z-20">
+        <motion.span>{date}</motion.span>
+        <motion.span>{time}</motion.span>
+      </motion.p>
 
       <motion.div className="absolute bottom-0 w-full h-[130px] bg-gradient-to-t from-black/70 z-10 rounded-b-md" />
 

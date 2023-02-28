@@ -33,7 +33,7 @@ const WriteDrawer = ({ region, temp_now, temp_feels, temp_min, temp_max }: Props
 
   const toast = useToast();
 
-  const { mutate: postFile } = usePostFile();
+  const { mutate: postFile, status } = usePostFile();
   const { refetch } = useGetTodayPost();
 
   const {
@@ -89,7 +89,7 @@ const WriteDrawer = ({ region, temp_now, temp_feels, temp_min, temp_max }: Props
   };
 
   return (
-    <Drawer size="full" placement="bottom" isOpen={writeDrawer} onClose={handleClose}>
+    <Drawer size="lg" placement="bottom" isOpen={writeDrawer} onClose={handleClose}>
       <DrawerOverlay />
 
       <DrawerContent>
@@ -154,7 +154,7 @@ const WriteDrawer = ({ region, temp_now, temp_feels, temp_min, temp_max }: Props
             bg="#b03232"
             _hover={{ bg: '#932929' }}
             isDisabled={!!errors.image || !!errors.description}
-            isLoading={isSubmitting}
+            isLoading={isSubmitting || status === 'loading'}
             className="text-white">
             등록
           </Button>

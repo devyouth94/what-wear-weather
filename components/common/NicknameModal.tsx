@@ -25,6 +25,7 @@ const NicknameModal = ({ nickname, description }: Props) => {
 
   const {
     register,
+    reset,
     watch,
     formState: { errors, isSubmitting },
     handleSubmit: onSubmit,
@@ -38,7 +39,7 @@ const NicknameModal = ({ nickname, description }: Props) => {
       const event = new Event('visibilitychange');
       document.dispatchEvent(event);
 
-      handleClose();
+      changeModalState('nickname');
       toast({
         title: '닉네임 변경 성공!',
         status: 'success',
@@ -57,6 +58,7 @@ const NicknameModal = ({ nickname, description }: Props) => {
 
   const handleClose = () => {
     changeModalState('nickname');
+    reset();
   };
 
   return (
@@ -95,6 +97,7 @@ const NicknameModal = ({ nickname, description }: Props) => {
 
         <ModalFooter>
           <Button
+            form="nickname-form"
             type="submit"
             mr="1"
             bg="#b03232"
