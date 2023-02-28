@@ -21,7 +21,7 @@ const Layout = ({ children, className, style }: Props) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className={`h-screen ${className}`}>
+          className={`min-h-screen ${className}`}>
           {children}
         </motion.div>
       </main>
