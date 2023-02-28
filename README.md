@@ -2,30 +2,35 @@
 
 ## 서비스 소개
 
-- 그 날의 날씨와 입었던 옷을 함께 저장하고, 나만의 옷장을 만들어보세요.
-- 서비스 링크 (작업 후 등록 예정)
+- 오늘의 착장과 날씨를 함께 저장하고, 나만의 옷장을 만들어보세요.
+- [서비스 링크](https://what-wear-weather.vercel.app)
 
 ## 작업 기간
 
-- 2023/2/15 ~ ing...
+- 2023/2/15 ~ 2023/2/28
 
-## 기술 스택 (현재 예정이므로 추후 변경될 가능성이 있습니다.)
+## 기술 스택
 
-- create-next-app
-- TypeScript
-- Next.js
-- Tailwind CSS
-- ESLint
-- Prettier
-- PWA
-- React-testing-library
-- Jest
-- Prisma
-- PlanetScale
-- AWS Amplify
-- Etc Library
-  - next-auth
-  - react-hook-form
+- Language
+  - TypeScript
+- Framework
+  - create-next-app
+  - Next.js
+- State Management
+  - Tanstack Query
+  - Zustand
+- CSS
+  - Tailwind CSS
+  - Chakra UI
+  - Framer Motion
+- Linter
+  - ESLint
+  - Prettier
+- Severless
+  - Prisma
+  - PlanetScale
+- Deploy
+  - Vercel
 
 ## 컨트리뷰터
 
