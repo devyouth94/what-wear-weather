@@ -4,19 +4,24 @@ import { AnimatePresence } from 'framer-motion';
 import PostCard from '@/components/common/PostCard';
 import PostCardModal from '@/components/common/PostCardModal';
 
-import useGetTodayPost from '@/hooks/main/useGetTodayPost';
 import useSelectedState from '@/hooks/mypage/useSelectedState';
 import { useModalActions } from '@/store/useModalStore';
+import type { GetPostData } from '@/lib/constants/types';
 
-const TodayPost = () => {
+type Props = {
+  todayData: {
+    result?: GetPostData;
+    ok: boolean;
+  };
+};
+
+const TodayPost = ({ todayData }: Props) => {
   const { changeModalState } = useModalActions();
-
-  const { data: todayData, status: todayStatus } = useGetTodayPost();
   const { selectedId, handleSelected } = useSelectedState();
 
   return (
     <div className="mt-5">
-      {todayStatus === 'success' && todayData.ok && (
+      {todayData.ok && (
         <Button
           width="100%"
           size="lg"
@@ -30,7 +35,7 @@ const TodayPost = () => {
         </Button>
       )}
 
-      {todayStatus === 'success' && todayData.result && (
+      {todayData.result && (
         <>
           <PostCard isToday post={todayData.result} handleSelected={handleSelected} />
 

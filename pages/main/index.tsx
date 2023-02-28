@@ -2,6 +2,7 @@ import type { GetServerSideProps } from 'next';
 import { getToken } from 'next-auth/jwt';
 import { Skeleton } from '@chakra-ui/react';
 
+import Header from '@/components/common/Header';
 import NullNickname from '@/components/main/NullNickname';
 import WriteDrawer from '@/components/main/WriteDrawer';
 import Layout from '@/components/common/Layout';
@@ -16,8 +17,9 @@ import useGeolocation from '@/hooks/common/useGeolocation';
 import useGetCityName from '@/hooks/main/useGetCityName';
 import useGetLiveWeather from '@/hooks/main/useGetLiveWeather';
 import useGetDailyWeather from '@/hooks/main/useGetDailyWeather';
+import useGetTodayPost from '@/hooks/main/useGetTodayPost';
+
 import { WEATHER_IMAGE } from '@/lib/constants/weatherImage';
-import Header from '@/components/common/Header';
 
 const Main = () => {
   const { location } = useGeolocation();
@@ -25,10 +27,13 @@ const Main = () => {
   const { data: liveWeatherData, status: liveWeatherStatus } = useGetLiveWeather(location);
   const { data: dailyWeatherData, status: dailyWeatherStatus } = useGetDailyWeather(location);
 
+  const { data: todayData, status: todayStatus } = useGetTodayPost();
+
   if (
     cityNameStatus === 'error' ||
     liveWeatherStatus === 'error' ||
-    dailyWeatherStatus === 'error'
+    dailyWeatherStatus === 'error' ||
+    todayStatus === 'error'
   ) {
     return <NotFound />;
   }
@@ -36,7 +41,8 @@ const Main = () => {
   if (
     cityNameStatus === 'loading' ||
     liveWeatherStatus === 'loading' ||
-    dailyWeatherStatus === 'loading'
+    dailyWeatherStatus === 'loading' ||
+    todayStatus === 'loading'
   ) {
     return (
       <Layout className="flex flex-col gap-5 pb-24 pt-5">
@@ -72,7 +78,7 @@ const Main = () => {
 
         <LiveWeatherCard cityNameData={cityNameData} liveWeatherData={liveWeatherData} />
 
-        <TodayPost />
+        <TodayPost todayData={todayData} />
 
         <DailyWeatherCard dailyWeatherData={dailyWeatherData} />
 
