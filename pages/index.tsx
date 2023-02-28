@@ -28,7 +28,7 @@ export default function Home() {
   }, [status]);
 
   return (
-    <Layout className="flex justify-center items-center">
+    <Layout className="flex justify-center items-center will-change-transform">
       <FullLogo />
     </Layout>
   );
