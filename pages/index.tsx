@@ -42,7 +42,7 @@ export default function Home() {
         </div>
       )}
 
-      <Layout className="flex justify-center items-center">
+      <Layout className="flex justify-center items-center h-screen">
         {isMobile ? <FullLogo /> : <MotionFullLogo />}
       </Layout>
     </>
