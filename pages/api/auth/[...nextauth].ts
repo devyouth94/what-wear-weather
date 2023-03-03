@@ -27,10 +27,12 @@ export default NextAuth({
     KakaoProvider({
       clientId: String(process.env.KAKAO_CLIENT_ID),
       clientSecret: String(process.env.KAKAO_CLIENT_SECRET),
+      allowDangerousEmailAccountLinking: true,
     }),
     NaverProvider({
       clientId: String(process.env.NAVER_CLIENT_ID),
       clientSecret: String(process.env.NAVER_CLIENT_SECRET),
+      allowDangerousEmailAccountLinking: true,
     }),
   ],
 
