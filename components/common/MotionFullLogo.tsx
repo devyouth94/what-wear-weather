@@ -27,6 +27,7 @@ const MotionFullLogo = () => {
     <motion.svg
       id="Layer_2"
       data-name="Layer 2"
+      width={250}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 1356.63 702.37">
       <motion.path
