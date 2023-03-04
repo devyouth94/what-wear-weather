@@ -29,7 +29,7 @@ const Mypage = () => {
       {userData && <ProfileImgModal initialImg={String(userData.user?.image)} />}
       <SettingDrawer />
 
-      <Layout className="pt-5 pb-24 h-screen">
+      <Layout className="pt-5 pb-24 min-h-screen">
         <IconSetting
           onClick={() => changeModalState('setting')}
           className="absolute top-5 right-5 w-5 cursor-pointer z-10"
