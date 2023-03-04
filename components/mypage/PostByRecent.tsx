@@ -24,7 +24,7 @@ const PostByRecent = () => {
           ? postData.map((post) => (
               <PostCard key={post.id} post={post} handleSelected={handleSelected} />
             ))
-          : [1, 2, 3, 4].map((item) => <Skeleton key={item} height="300px" rounded="lg" />)}
+          : [1, 2].map((item) => <Skeleton key={item} height="300px" rounded="lg" />)}
       </PostContainer>
 
       <AnimatePresence>
