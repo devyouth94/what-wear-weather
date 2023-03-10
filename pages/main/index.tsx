@@ -54,7 +54,8 @@ const Main = () => {
     );
   }
 
-  const backgroundData = WEATHER_IMAGE[liveWeatherData.weather.main.toLowerCase()];
+  const backgroundData =
+    WEATHER_IMAGE[liveWeatherData.weather.main.toLowerCase()] || WEATHER_IMAGE['mist'];
 
   return (
     <>
