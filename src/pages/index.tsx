@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
-import { Spinner } from '@chakra-ui/react';
 
-import MotionFullLogo from '@/components/common/MotionFullLogo';
-import Layout from '@/components/common/Layout';
+import Layout from '@/elements/Layout';
+import FullLogo from '@/elements/FullLogo';
 
 export default function Home() {
   const { status } = useSession();
@@ -34,14 +33,8 @@ export default function Home() {
 
   return (
     <>
-      {isOpen && (
-        <div className="absolute flex justify-center items-center bg-black/50 w-full z-20 min-h-screen">
-          <Spinner thickness="6px" speed="0.65s" emptyColor="gray.200" color="red.500" size="xl" />
-        </div>
-      )}
-
-      <Layout className="flex justify-center items-center h-screen">
-        <MotionFullLogo />
+      <Layout center>
+        <FullLogo />
       </Layout>
     </>
   );
