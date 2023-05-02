@@ -9,6 +9,8 @@ declare module '@emotion/react' {
 
       secondary_01: string;
 
+      danger: string;
+
       white: string;
       kakao: string;
       naver: string;

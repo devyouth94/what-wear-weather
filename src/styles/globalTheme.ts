@@ -6,6 +6,8 @@ const globalTheme = {
 
     secondary_01: '#F6F1E9',
 
+    danger: '#DC926C',
+
     white: '#FCFCFC',
     kakao: '#FEE500',
     naver: '#2DB400',
