@@ -3,13 +3,14 @@ import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { ChakraProvider } from '@chakra-ui/react';
+import { ThemeProvider } from '@emotion/react';
 
-import theme from 'styles/theme';
+import globalTheme from '@/styles/globalTheme';
+
+import { ChakraProvider } from '@chakra-ui/react';
 import tailwindThemeToggle from 'styles/tailwindThemeToggle';
 import 'styles/globals.css';
-import { ThemeProvider } from '@emotion/react';
-import globalTheme from 'styles/globalTheme';
+import theme from 'styles/theme';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(

@@ -10,10 +10,7 @@ export default function Home() {
   const { push } = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
-
   useEffect(() => {
-    if (status === 'loading') return;
-
     const timer = setTimeout(() => {
       setIsOpen(true);
 
