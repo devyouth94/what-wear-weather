@@ -1,14 +1,16 @@
 import { GetServerSideProps } from 'next';
-import { getToken } from 'next-auth/jwt';
+import { getServerSession } from 'next-auth';
 
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import Layout from '@/elements/Layout';
 import SimpleLogo from '@/elements/SimpleLogo';
-import LoginForm from 'components/login/LoginForm';
+import LoginForm from '@/components/LoginForm';
 
 const Login = () => {
   return (
     <Layout center>
       <SimpleLogo />
+
       <LoginForm />
     </Layout>
   );
@@ -16,10 +18,10 @@ const Login = () => {
 
 export default Login;
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const token = await getToken({ req });
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions);
 
-  if (token) {
+  if (session) {
     return {
       redirect: {
         destination: '/main',
