@@ -18,7 +18,14 @@ const LiveWeather = ({ location }: Props) => {
 
   return (
     <S.LiveWeather>
-      <Text variant="head_01">{cityNameData?.ko || cityNameData?.en}</Text>
+      <Text variant="head_01">
+        <a
+          href={`https://openweathermap.org/city/${liveWeatherData?.city_id}`}
+          target="_blank"
+          rel="noreferrer">
+          {cityNameData?.ko || cityNameData?.en}
+        </a>
+      </Text>
 
       <S.FlexMiddle>
         <Text variant="head_xl">{liveWeatherData?.temp}&#8451;</Text>
