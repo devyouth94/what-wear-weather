@@ -6,7 +6,7 @@ import EmailProvider from 'next-auth/providers/email';
 import KakaoProvider from 'next-auth/providers/kakao';
 import NaverProvider from 'next-auth/providers/naver';
 
-import prisma from 'lib/utils/prismadb';
+import prisma from '@/utils/prisma';
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
