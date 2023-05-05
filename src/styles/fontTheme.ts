@@ -1,6 +1,12 @@
 import { css } from '@emotion/react';
 
 const fontTheme = {
+  head_xl: css`
+    font-weight: 900;
+    font-size: 48px;
+    line-height: 48px;
+  `,
+
   head_01: css`
     font-weight: 900;
     font-size: 30px;
