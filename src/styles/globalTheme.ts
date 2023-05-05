@@ -3,6 +3,7 @@ const globalTheme = {
     point_01: '#E74646',
 
     main_01: '#2C3639',
+    main_02: '#708488',
 
     secondary_01: '#F6F1E9',
 

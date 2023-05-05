@@ -18,6 +18,13 @@ export type TLiveWeather = {
   city_id: number;
 };
 
+export type TDailyWeather = {
+  time: string;
+  weather: TWeather;
+  temp_min: number;
+  temp_max: number;
+};
+
 export type TWeatherImage = {
   src: string;
   profile: string;

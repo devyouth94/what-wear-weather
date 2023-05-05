@@ -6,6 +6,7 @@ declare module '@emotion/react' {
       point_01: string;
 
       main_01: string;
+      main_02: string;
 
       secondary_01: string;
 
