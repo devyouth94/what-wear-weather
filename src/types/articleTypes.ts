@@ -10,3 +10,18 @@ export type TGetArticle = {
   id: string;
   userId: string;
 };
+
+export type TPostArticle = {
+  region: string;
+  temp_now: number;
+  temp_feels: number;
+  temp_min: number;
+  temp_max: number;
+  description: string;
+  image: File;
+};
+
+export type TSubmitForm = {
+  description: string;
+  image: FileList | null;
+};

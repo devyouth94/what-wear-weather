@@ -1,17 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 import { getSession } from 'next-auth/react';
-import { PrismaClient } from '@prisma/client';
 
-import { imageDelete, imageUpload } from '@/lib/utils/imageUpload';
+import { imageDelete, imageUpload } from '@/utils/imageUpload';
+import prisma from '@/utils/prisma';
 
 interface ExtendedRequest extends NextApiRequest {
   file: {
     Location: string;
   };
 }
-
-const prisma = new PrismaClient();
 
 const handler = nextConnect<ExtendedRequest, NextApiResponse>({
   onError(error, _, res) {
