@@ -9,10 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@chakra-ui/react": "^2.5.1",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
-    "@headlessui/react": "^1.7.14",
     "@next-auth/prisma-adapter": "^1.0.5",
     "@next/font": "13.1.6",
     "@prisma/client": "^4.10.1",
@@ -35,6 +33,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.1",
     "react-slider": "^2.0.4",
+    "react-toastify": "^9.1.2",
     "typescript": "4.9.5",
     "uuid": "^9.0.0",
     "zustand": "^4.3.3"
@@ -52,7 +51,6 @@
     "postcss": "^8.4.21",
     "postcss-100vh-fix": "^1.0.2",
     "prettier": "^2.8.4",
-    "prisma": "^4.10.1",
-    "tailwindcss": "^3.2.6"
+    "prisma": "^4.10.1"
   }
 }

@@ -1,16 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { ThemeProvider } from '@emotion/react';
+import { Global, ThemeProvider } from '@emotion/react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 import globalTheme from '@/styles/globalTheme';
-
-import { ChakraProvider } from '@chakra-ui/react';
-import tailwindThemeToggle from 'styles/tailwindThemeToggle';
-import 'styles/globals.css';
-import theme from 'styles/theme';
+import { globalStyles } from '@/styles/globalStyles';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(
@@ -20,20 +18,21 @@ export default function App({ Component, pageProps }: AppProps) {
       }),
   );
 
-  useEffect(() => {
-    tailwindThemeToggle();
-  }, []);
-
   return (
-    <ChakraProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>
-        <SessionProvider session={pageProps.session}>
-          <ThemeProvider theme={globalTheme}>
-            <Component {...pageProps} />
-          </ThemeProvider>
-        </SessionProvider>
-        <ReactQueryDevtools />
-      </QueryClientProvider>
-    </ChakraProvider>
+    <QueryClientProvider client={queryClient}>
+      <SessionProvider session={pageProps.session}>
+        <ThemeProvider theme={globalTheme}>
+          <Global styles={globalStyles} />
+          <Component {...pageProps} />
+          <ToastContainer
+            position="bottom-center"
+            autoClose={3000}
+            theme="colored"
+            closeButton={false}
+          />
+        </ThemeProvider>
+      </SessionProvider>
+      <ReactQueryDevtools />
+    </QueryClientProvider>
   );
 }
