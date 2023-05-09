@@ -1,12 +1,12 @@
-import React, { HTMLAttributes } from 'react';
+import React, { ForwardRefRenderFunction, InputHTMLAttributes } from 'react';
 
 import * as S from './index.styles';
 
-const BasicInput = (
-  { ...attribute }: HTMLAttributes<HTMLInputElement>,
-  forwardedRef: React.Ref<HTMLInputElement>,
-) => {
-  return <S.BasicInput {...attribute} ref={forwardedRef} />;
+const BasicInput: ForwardRefRenderFunction<
+  HTMLInputElement,
+  InputHTMLAttributes<HTMLInputElement>
+> = ({ ...props }, ref) => {
+  return <S.BasicInput {...props} ref={ref} />;
 };
 
 export default React.forwardRef(BasicInput);
