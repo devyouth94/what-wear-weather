@@ -15,12 +15,15 @@ export const Button = styled.button<Required<BasicButtonProps>>`
       case 'outline': {
         return css`
           background-color: transparent;
-          border-width: 1px;
-          border-color: ${theme.colors[color]};
+          border: 1px solid ${theme.colors[color]};
         `;
       }
     }
   }}
+
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors.point_02};
+  }
 
   width: 100%;
   height: 48px;
