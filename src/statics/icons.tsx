@@ -1,3 +1,5 @@
+import { SVGAttributes } from 'react';
+
 // 네비게이션 아이콘
 export const IconMain = () => {
   return (
@@ -57,6 +59,47 @@ export const IconCancel = () => {
       <circle cx="12.5" cy="12.5" r="12.5" fill="#2C3639" fillOpacity="0.8" />
       <path
         d="M19 8.20857L17.7914 7L13 11.7914L8.20857 7L7 8.20857L11.7914 13L7 17.7914L8.20857 19L13 14.2086L17.7914 19L19 17.7914L14.2086 13L19 8.20857Z"
+        fill="#F6F1E9"
+      />
+    </svg>
+  );
+};
+
+export const IconDrawer = ({ ...props }: SVGAttributes<SVGSVGElement>) => {
+  return (
+    <svg
+      {...props}
+      width="30"
+      height="30"
+      viewBox="0 0 30 30"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <g clipPath="url(#clip0_22_1103)">
+        <path
+          d="M3.75 22.5H26.25V20H3.75V22.5ZM3.75 16.25H26.25V13.75H3.75V16.25ZM3.75 7.5V10H26.25V7.5H3.75Z"
+          fill="#F6F1E9"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_22_1103">
+          <rect width="30" height="30" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+};
+
+export const IconClose = ({ ...props }: SVGAttributes<SVGSVGElement>) => {
+  return (
+    <svg
+      {...props}
+      width="30"
+      height="30"
+      viewBox="0 0 30 30"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M23.75 8.0125L21.9875 6.25L15 13.2375L8.0125 6.25L6.25 8.0125L13.2375 15L6.25 21.9875L8.0125 23.75L15 16.7625L21.9875 23.75L23.75 21.9875L16.7625 15L23.75 8.0125Z"
         fill="#F6F1E9"
       />
     </svg>
