@@ -1,3 +1,4 @@
+import React from 'react';
 import * as S from './index.styles';
 import type { LayoutProps } from './index.types';
 
@@ -13,4 +14,9 @@ const Layout = ({
   );
 };
 
+const LayoutHeader = ({ children }: React.PropsWithChildren) => {
+  return <S.LayoutHeader>{children}</S.LayoutHeader>;
+};
+
+Layout.Header = LayoutHeader;
 export default Layout;

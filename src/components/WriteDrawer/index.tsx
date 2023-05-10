@@ -84,7 +84,7 @@ const WriteDrawer = ({ location }: Props) => {
               <Text variant="head_03">오늘의 사진</Text>
               <div>
                 {imageFile ? (
-                  <PreviewImage image={imageFile[0]} reset={reset} />
+                  <PreviewImage src={URL.createObjectURL(imageFile[0])} reset={reset} />
                 ) : (
                   <>
                     <label htmlFor="write-image-input">

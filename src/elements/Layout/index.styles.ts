@@ -42,3 +42,18 @@ export const Layout = styled.main<Required<LayoutProps>>`
 
   cursor: default;
 `;
+
+export const LayoutHeader = styled.header`
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  padding: 20px;
+  background-color: ${({ theme }) => theme.colors.main_01};
+`;

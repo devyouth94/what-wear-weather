@@ -8,7 +8,7 @@ export const Container = styled.ul`
   border-radius: 12px;
 
   & > li {
-    border-bottom: 1px solid ${({ theme }) => theme.colors.secondary_01};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.main_02};
   }
 
   & > li:last-of-type {

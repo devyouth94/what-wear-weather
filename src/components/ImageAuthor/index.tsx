@@ -18,7 +18,6 @@ const ImageAuthor = () => {
           Unsplash
         </a>
       </Text>
-      ;
     </S.Container>
   );
 };

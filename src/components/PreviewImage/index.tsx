@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import type { UseFormReset } from 'react-hook-form';
 
@@ -8,31 +7,23 @@ import * as S from './index.styles';
 import { IconCancel } from '@/statics/icons';
 
 interface Props {
-  image: File;
+  src: string;
   reset: UseFormReset<TSubmitForm>;
 }
 
-const PreviewImage = ({ image, reset }: Props) => {
-  const [prevImg, setPrevImg] = useState('');
-
+const PreviewImage = ({ src, reset }: Props) => {
   const handleClickCancel = () => {
     reset((value) => ({ ...value, image: null }));
   };
 
-  useEffect(() => {
-    if (!image) return;
-
-    setPrevImg(URL.createObjectURL(image));
-  }, [image]);
-
   return (
     <>
-      {prevImg && (
+      {src && (
         <S.PreviewImage>
           <S.CancelButton onClick={handleClickCancel}>
             <IconCancel />
           </S.CancelButton>
-          <Image src={prevImg} alt={prevImg} fill />
+          <Image src={src} alt="today" fill />
         </S.PreviewImage>
       )}
     </>
