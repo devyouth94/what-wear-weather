@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { TGetArticle, TPostArticle } from '@/types/articleTypes';
+import type { TGetArticle, TPostArticle, TPostProfile } from '@/types/articleTypes';
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
@@ -23,6 +23,20 @@ export const postArticle = async (file: TPostArticle) => {
   formData.append('image', file.image);
 
   const { data } = await api.post('/api/files', formData);
+
+  return data;
+};
+
+export const postProfile = async (profile: TPostProfile) => {
+  const formData = new FormData();
+
+  formData.append('nickname', profile.nickname);
+  if (profile.image) {
+    formData.append('image', profile.image);
+  }
+
+  const { data } = await api.post('/api/auth/profile', formData);
+  await api.get('/api/auth/session?update');
 
   return data;
 };
