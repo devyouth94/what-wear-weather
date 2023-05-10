@@ -5,6 +5,7 @@ const globalTheme = {
 
     main_01: '#2C3639',
     main_02: '#708488',
+    main_04: '#e2e2e2',
 
     secondary_01: '#F6F1E9',
 

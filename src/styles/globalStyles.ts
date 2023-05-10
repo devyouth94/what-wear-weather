@@ -50,6 +50,7 @@ export const globalStyles = css`
   }
 
   body {
+    height: 100vh;
     min-height: 100vh;
 
     &::-webkit-scrollbar {
@@ -63,6 +64,7 @@ export const globalStyles = css`
 
   @supports (-webkit-touch-callout: none) {
     body {
+      height: -webkit-fill-available;
       min-height: -webkit-fill-available;
     }
   }

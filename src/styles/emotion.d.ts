@@ -8,6 +8,7 @@ declare module '@emotion/react' {
 
       main_01: string;
       main_02: string;
+      main_04: string;
 
       secondary_01: string;
 

@@ -25,3 +25,13 @@ export type TSubmitForm = {
   description: string;
   image: FileList | null;
 };
+
+export type TPostProfile = {
+  nickname: string;
+  image: File | null;
+};
+
+export type TProfileForm = {
+  nickname: string;
+  image: FileList | null;
+};
