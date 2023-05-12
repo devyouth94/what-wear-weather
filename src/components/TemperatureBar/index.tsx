@@ -1,4 +1,4 @@
-import * as S from './index.styles';
+import Slider from '@/elements/Slider';
 
 interface Props {
   daily: {
@@ -11,18 +11,14 @@ interface Props {
   };
 }
 
-const Track = (props: any, state: any) => {
-  return <S.Track {...props} index={state.index} />;
-};
-
 const TemperatureBar = ({ daily, week }: Props) => {
   return (
-    <S.RangeSlider
+    <Slider
       min={week.min}
       max={week.max}
       defaultValue={[daily.min, daily.max]}
       disabled
-      renderTrack={Track}
+      renderTrack={Slider.Track}
     />
   );
 };
