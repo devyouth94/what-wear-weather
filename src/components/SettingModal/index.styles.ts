@@ -6,5 +6,13 @@ export const CloseContainer = styled.div`
 `;
 
 export const ContextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
   margin-top: 30px;
+
+  span {
+    cursor: pointer;
+  }
 `;

@@ -6,11 +6,15 @@ import { useModalActions, useSettingModalState } from '@/stores/useModalStore';
 import { IconClose } from '@/statics/icons';
 
 import * as S from './index.styles';
+import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 const SettingModal = () => {
   const isOpen = useSettingModalState();
   const { changeDrawerState } = useDrawerActions();
   const { changeModalState } = useModalActions();
+
+  const { replace } = useRouter();
 
   return (
     <Modal isOpen={isOpen}>
@@ -21,6 +25,15 @@ const SettingModal = () => {
         <S.ContextContainer>
           <Text variant="head_04" onClick={() => changeDrawerState('profile')}>
             프로필 설정
+          </Text>
+          <Text
+            variant="head_04"
+            onClick={() =>
+              signOut().then(() => {
+                replace('/');
+              })
+            }>
+            로그아웃
           </Text>
         </S.ContextContainer>
       </Modal.Contents>
