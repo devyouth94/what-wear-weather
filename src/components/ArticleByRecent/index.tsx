@@ -1,7 +1,7 @@
 import ArticleItem from '@/components/ArticleItem';
-import useGetArticles from '@/hooks/mypage/useGetArticles';
+import ArticleContainer from '@/components/ArticleContainer';
 
-import * as S from './index.styles';
+import useGetArticles from '@/hooks/mypage/useGetArticles';
 
 const ArticleByRecent = () => {
   const { data: articlesData } = useGetArticles();
@@ -9,11 +9,11 @@ const ArticleByRecent = () => {
   return (
     <>
       {articlesData && (
-        <S.RecentContainer>
+        <ArticleContainer>
           {articlesData.map((article) => (
             <ArticleItem key={article.id} {...article} />
           ))}
-        </S.RecentContainer>
+        </ArticleContainer>
       )}
     </>
   );

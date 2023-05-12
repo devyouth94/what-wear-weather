@@ -17,6 +17,14 @@ export const getArticles = async () => {
   return data.result;
 };
 
+export const getArticlesBySearch = async (temp: number[]) => {
+  const { data } = await api.get<{ result: TGetArticle[] }>('/api/files', {
+    params: { min: temp[0], max: temp[1] },
+  });
+
+  return data.result;
+};
+
 export const postArticle = async (file: TPostArticle) => {
   const formData = new FormData();
 
