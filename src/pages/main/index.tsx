@@ -1,89 +1,37 @@
 import type { GetServerSideProps } from 'next';
-import { getToken } from 'next-auth/jwt';
-import { Skeleton } from '@chakra-ui/react';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../api/auth/[...nextauth]';
 
-import Header from '@/components/common/Header';
-import NullNickname from '@/components/main/NullNickname';
-import WriteDrawer from '@/components/main/WriteDrawer';
-import Layout from '@/components/common/Layout';
-import LiveWeatherCard from '@/components/main/LiveWeatherCard';
-import TodayPost from '@/components/main/TodayPost';
-import DailyWeatherCard from '@/components/main/DailyWeatherCard';
-import ImageAuthorCard from '@/components/main/ImageAuthorCard';
-import Nav from '@/components/common/Nav';
-import NotFound from '@/pages/404';
+import WriteDrawer from '@/components/WriteDrawer';
+import Layout from '@/elements/Layout';
+import Header from '@/components/Header';
+import LiveWeather from '@/components/LiveWeather';
+import TodayArticle from '@/components/TodayArticle';
+import DailyWeather from '@/components/DailyWeather';
+import ImageAuthor from '@/components/ImageAuthor';
+import Nav from '@/components/Nav';
 
 import useGeolocation from '@/hooks/common/useGeolocation';
-import useGetCityName from '@/hooks/main/useGetCityName';
-import useGetLiveWeather from '@/hooks/main/useGetLiveWeather';
-import useGetDailyWeather from '@/hooks/main/useGetDailyWeather';
-import useGetTodayPost from '@/hooks/main/useGetTodayPost';
-
-import { WEATHER_IMAGE } from '@/lib/constants/weatherImage';
+import { useBackgroundImageState } from '@/stores/useBackgroundImageStore';
 
 const Main = () => {
   const { location } = useGeolocation();
-  const { data: cityNameData, status: cityNameStatus } = useGetCityName(location);
-  const { data: liveWeatherData, status: liveWeatherStatus } = useGetLiveWeather(location);
-  const { data: dailyWeatherData, status: dailyWeatherStatus } = useGetDailyWeather(location);
-
-  const { data: todayData, status: todayStatus } = useGetTodayPost();
-
-  if (
-    cityNameStatus === 'error' ||
-    liveWeatherStatus === 'error' ||
-    dailyWeatherStatus === 'error' ||
-    todayStatus === 'error'
-  ) {
-    return <NotFound />;
-  }
-
-  if (
-    cityNameStatus === 'loading' ||
-    liveWeatherStatus === 'loading' ||
-    dailyWeatherStatus === 'loading' ||
-    todayStatus === 'loading'
-  ) {
-    return (
-      <Layout className="flex flex-col gap-5 pb-24 pt-5">
-        <Header />
-        <Skeleton height="200px" rounded="lg" />
-        <Skeleton height="50px" rounded="lg" />
-        <Skeleton height="400px" rounded="lg" />
-      </Layout>
-    );
-  }
-
-  const backgroundData =
-    WEATHER_IMAGE[liveWeatherData.weather.main.toLowerCase()] || WEATHER_IMAGE['mist'];
+  const { src } = useBackgroundImageState();
 
   return (
     <>
-      <NullNickname />
+      <WriteDrawer location={location} />
 
-      <WriteDrawer
-        region={cityNameData}
-        temp_now={liveWeatherData.temp}
-        temp_feels={liveWeatherData.feels_temp}
-        temp_min={dailyWeatherData[0].temp_min}
-        temp_max={dailyWeatherData[0].temp_max}
-      />
-
-      <Layout
-        className="pb-24 pt-5"
-        style={{
-          backgroundImage: `url(${backgroundData.src})`,
-          backgroundSize: 'cover',
-        }}>
+      <Layout backgroundImage={src}>
         <Header />
 
-        <LiveWeatherCard cityNameData={cityNameData} liveWeatherData={liveWeatherData} />
+        <LiveWeather location={location} />
 
-        <TodayPost todayData={todayData} />
+        <TodayArticle />
 
-        <DailyWeatherCard dailyWeatherData={dailyWeatherData} />
+        <DailyWeather location={location} />
 
-        {backgroundData && <ImageAuthorCard backgroundData={backgroundData} />}
+        <ImageAuthor />
       </Layout>
 
       <Nav />
@@ -93,10 +41,10 @@ const Main = () => {
 
 export default Main;
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const token = await getToken({ req });
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions);
 
-  if (!token) {
+  if (!session) {
     return {
       redirect: {
         destination: '/login',
