@@ -11,6 +11,12 @@ export const getTodayArticle = async () => {
   return data;
 };
 
+export const getArticles = async () => {
+  const { data } = await api.get<{ result: TGetArticle[] }>('/api/files');
+
+  return data.result;
+};
+
 export const postArticle = async (file: TPostArticle) => {
   const formData = new FormData();
 
