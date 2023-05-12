@@ -53,6 +53,8 @@ export const globalStyles = css`
     height: 100vh;
     min-height: 100vh;
 
+    overflow-y: overlay;
+
     &::-webkit-scrollbar {
       width: 6px;
     }

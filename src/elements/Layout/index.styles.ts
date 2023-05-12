@@ -18,7 +18,7 @@ export const Layout = styled.main<Required<LayoutProps>>`
   ${({ theme, backgroundImage }) =>
     backgroundImage
       ? css`
-          background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+          background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
             url(${backgroundImage});
           background-size: cover;
         `
@@ -28,6 +28,7 @@ export const Layout = styled.main<Required<LayoutProps>>`
 
     @media (min-width: 640px) {
     position: absolute;
+    top: 0;
     left: 50%;
     transform: translate(-50%);
 
@@ -38,12 +39,20 @@ export const Layout = styled.main<Required<LayoutProps>>`
 
   width: 100%;
   min-height: 100vh;
-  padding: 0 20px 75px 20px;
+  padding: 0 20px 65px 20px;
 
   cursor: default;
 `;
 
 export const LayoutHeader = styled.header`
+  @media (min-width: 640px) {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%);
+
+    width: 375px;
+  }
+
   position: fixed;
   left: 0;
   top: 0;

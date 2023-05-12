@@ -22,7 +22,7 @@ const Nav = () => {
   const { route } = useRouter();
 
   return (
-    <S.Nav>
+    <S.Nav route={route}>
       {NAV_ARR.map((item, idx) => (
         <S.NavItem key={idx} href={item.path} route={String(route === item.path)}>
           {item.icon}

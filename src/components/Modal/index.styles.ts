@@ -34,7 +34,7 @@ export const ModalContents = styled.div`
   right: 0;
   z-index: 9;
 
-  width: 145px;
+  width: 170px;
   height: calc(100vh - 62px);
   padding: 26px 20px 20px 20px;
   background-color: ${({ theme }) => theme.colors.main_01};
