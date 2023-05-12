@@ -35,3 +35,5 @@ export type TProfileForm = {
   nickname: string;
   image: FileList | null;
 };
+
+export type TArticleFilter = '최신순' | '온도별 검색';
