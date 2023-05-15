@@ -17,6 +17,14 @@ export const getArticles = async () => {
   return data.result;
 };
 
+export const getArticle = async (articleId: string | null) => {
+  const { data } = await api.get<{ result: TGetArticle }>('/api/files', {
+    params: { articleId },
+  });
+
+  return data.result;
+};
+
 export const getArticlesBySearch = async (temp: number[]) => {
   const { data } = await api.get<{ result: TGetArticle[] }>('/api/files', {
     params: { min: temp[0], max: temp[1] },
@@ -37,6 +45,12 @@ export const postArticle = async (file: TPostArticle) => {
   formData.append('image', file.image);
 
   const { data } = await api.post('/api/files', formData);
+
+  return data;
+};
+
+export const deleteArticle = async (postId: string) => {
+  const { data } = await api.delete(`/api/files?postId=${postId}`);
 
   return data;
 };

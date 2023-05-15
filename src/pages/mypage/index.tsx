@@ -1,49 +1,38 @@
 import type { GetServerSideProps } from 'next';
+import { getServerSession } from 'next-auth';
 import { useSession } from 'next-auth/react';
-import { getToken } from 'next-auth/jwt';
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
-import NicknameModal from '@/components/common/NicknameModal';
-import ProfileImgModal from '@/components/mypage/ProfileImgModal';
-import SettingDrawer from '@/components/mypage/SettingDrawer';
+import SettingModal from '@/components/SettingModal';
+import ProfileDrawer from '@/components/ProfileDrawer';
+import Layout from '@/elements/Layout';
+import Text from '@/elements/Text';
+import UserInfo from '@/components/UserInfo';
+import MyArticles from '@/components/MyArticles';
+import Nav from '@/components/Nav';
 
-import Layout from '@/components/common/Layout';
-import UserInfo from '@/components/mypage/UserInfo';
-import FilterButton from '@/components/mypage/FilterButton';
-import PostByRecent from '@/components/mypage/PostByRecent';
-import PostByTemp from '@/components/mypage/PostByTemp';
-import Nav from '@/components/common/Nav';
-
-import useFilterState from '@/hooks/mypage/useFilterState';
-import { IconSetting } from '@/static/Icons';
-import { useModalActions } from '@/store/useModalStore';
+import { IconDrawer } from '@/statics/icons';
+import { useModalActions } from '@/stores/useModalStore';
+import ArticleDrawer from '@/components/ArticleDrawer';
 
 const Mypage = () => {
-  const { data: userData } = useSession();
-
+  const { data, status } = useSession();
   const { changeModalState } = useModalActions();
-  const { filter, handleFilter } = useFilterState();
 
   return (
     <>
-      {userData && <NicknameModal nickname={String(userData.user?.name)} />}
-      {userData && <ProfileImgModal initialImg={String(userData.user?.image)} />}
-      <SettingDrawer />
+      <SettingModal />
+      <ArticleDrawer />
+      {status === 'authenticated' && <ProfileDrawer data={data} />}
 
-      <Layout className="pt-5 pb-24 min-h-screen">
-        <IconSetting
-          onClick={() => changeModalState('setting')}
-          className="absolute top-5 right-5 w-5 cursor-pointer z-10"
-        />
+      <Layout.Header>
+        <Text variant="head_01">마이페이지</Text>
+        <IconDrawer onClick={() => changeModalState('setting')} />
+      </Layout.Header>
 
-        {userData && (
-          <UserInfo nickname={String(userData.user?.name)} image={String(userData.user?.image)} />
-        )}
-
-        <FilterButton filter={filter} handleFilter={handleFilter} />
-
-        {filter === '최신순' && <PostByRecent />}
-
-        {filter === '온도별 검색하기' && <PostByTemp />}
+      <Layout>
+        <UserInfo />
+        <MyArticles />
       </Layout>
 
       <Nav />
@@ -53,10 +42,10 @@ const Mypage = () => {
 
 export default Mypage;
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const token = await getToken({ req });
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions);
 
-  if (!token) {
+  if (!session) {
     return {
       redirect: {
         destination: '/login',
