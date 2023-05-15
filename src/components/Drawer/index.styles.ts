@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
+import { motion } from 'framer-motion';
 
-export const Drawer = styled.div`
+export const Drawer = styled(motion.div)`
   @media (min-width: 640px) {
     left: 50%;
     transform: translate(-50%);
