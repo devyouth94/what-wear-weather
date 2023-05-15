@@ -28,7 +28,22 @@ handler.get(async (req, res) => {
     return res.status(401).json({ message: 'Unauthorized', ok: false });
   }
 
-  const { min, max } = req.query;
+  const { min, max, articleId } = req.query;
+
+  if (articleId) {
+    try {
+      const searchedPost = await prisma.post.findFirst({
+        where: {
+          userId,
+          id: String(articleId),
+        },
+      });
+
+      return res.status(200).json({ result: searchedPost, message: 'Get Successful!', ok: true });
+    } catch (error) {
+      return res.status(500).json({ message: 'Prisma Error', ok: false });
+    }
+  }
 
   if (min && max) {
     try {
