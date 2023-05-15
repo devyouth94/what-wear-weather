@@ -1,19 +1,10 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
-import type { LayoutProps } from './index.types';
+import type { LayoutStyleProps } from './index.types';
+import { motion } from 'framer-motion';
 
-export const Layout = styled.main<Required<LayoutProps>>`
-  /* 정가운데 배치하는 레이아웃 */
-  ${({ center }) =>
-    center &&
-    css`
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    `}
-
+export const Layout = styled.main<Partial<LayoutStyleProps>>`
   /* 배경이미지가 있는 레이아웃 */
   ${({ theme, backgroundImage }) =>
     backgroundImage
@@ -26,7 +17,7 @@ export const Layout = styled.main<Required<LayoutProps>>`
           background-color: ${theme.colors.main_01};
         `}
 
-    @media (min-width: 640px) {
+  @media (min-width: 640px) {
     position: absolute;
     top: 0;
     left: 50%;
@@ -39,7 +30,7 @@ export const Layout = styled.main<Required<LayoutProps>>`
 
   width: 100%;
   min-height: 100vh;
-  padding: 0 20px 65px 20px;
+  padding: 0 20px;
 
   cursor: default;
 `;
@@ -65,4 +56,18 @@ export const LayoutHeader = styled.header`
   width: 100%;
   padding: 20px;
   background-color: ${({ theme }) => theme.colors.main_01};
+`;
+
+export const MotionLayout = styled(motion.div)<Partial<LayoutStyleProps>>`
+  /* 정가운데 배치하는 레이아웃 */
+  ${({ center }) =>
+    center === 'true' &&
+    css`
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    `}
+
+  min-height: 100vh;
 `;
