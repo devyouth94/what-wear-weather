@@ -13,6 +13,7 @@ import Nav from '@/components/Nav';
 
 import useGeolocation from '@/hooks/common/useGeolocation';
 import { useBackgroundImageState } from '@/stores/useBackgroundImageStore';
+import ArticleDrawer from '@/components/ArticleDrawer';
 
 const Main = () => {
   const { location } = useGeolocation();
@@ -20,6 +21,7 @@ const Main = () => {
 
   return (
     <>
+      <ArticleDrawer />
       <WriteDrawer location={location} />
 
       <Layout backgroundImage={src}>
