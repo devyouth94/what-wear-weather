@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.min.css';
 
 import globalTheme from '@/styles/globalTheme';
 import { globalStyles } from '@/styles/globalStyles';
+import Head from 'next/head';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(
@@ -22,6 +23,12 @@ export default function App({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <SessionProvider session={pageProps.session}>
         <ThemeProvider theme={globalTheme}>
+          <Head>
+            <meta
+              name="viewport"
+              content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width"
+            />
+          </Head>
           <Global styles={globalStyles} />
           <Component {...pageProps} />
           <ToastContainer
