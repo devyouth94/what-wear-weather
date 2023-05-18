@@ -10,22 +10,8 @@ export const TempInfoContainer = styled.div`
   }
 `;
 
-export const PhotoContainer = styled.div`
-  & > div {
-    position: relative;
-
-    width: 100%;
-    aspect-ratio: 3 / 4;
-
-    img {
-      object-fit: cover;
-      border-radius: 12px;
-    }
-  }
-`;
-
 export const TextContainer = styled.div`
-  & > textarea {
-    margin-top: 10px;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `;
