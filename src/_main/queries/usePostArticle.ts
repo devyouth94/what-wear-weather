@@ -2,10 +2,11 @@ import { UseFormReset } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 
+import useGetTodayArticle from '@/_main/queries/useGetTodayArticle';
+
 import { postArticle } from '@/apis/api';
-import useGetTodayArticle from '@/hooks/main/useGetTodayArticle';
-import type { TSubmitForm } from '@/types/articleTypes';
 import { useDrawerActions } from '@/stores/useDrawerStore';
+import type { TSubmitForm } from '@/types/articleTypes';
 
 const usePostArticle = (reset: UseFormReset<TSubmitForm>) => {
   const { changeDrawerState } = useDrawerActions();

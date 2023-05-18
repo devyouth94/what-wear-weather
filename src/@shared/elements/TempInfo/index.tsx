@@ -1,4 +1,4 @@
-import Text from '@/elements/Text';
+import Text from '@/@shared/elements/Text';
 import * as S from './index.styles';
 
 interface Props {

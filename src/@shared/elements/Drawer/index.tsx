@@ -1,6 +1,8 @@
-import Text from '@/elements/Text';
-import * as S from './index.styles';
 import { AnimatePresence } from 'framer-motion';
+
+import Text from '@/@shared/elements/Text';
+
+import * as S from './index.styles';
 
 interface Props {
   isOpen: boolean;

@@ -1,21 +1,22 @@
 import { useForm } from 'react-hook-form';
 
-import Drawer from '@/components/Drawer';
-import TempInfo from '@/components/TempInfo';
-import BasicButton from '@/elements/BasicButton';
-import Text from '@/elements/Text';
-import PreviewImage from '@/components/PreviewImage';
-import BasicInput from '@/elements/BasicInput';
-import BasicTextarea from '@/elements/BasicTextarea';
+import useGetCityName from '@/_main/queries/useGetCityName';
+import useGetDailyWeather from '@/_main/queries/useGetDailyWeather';
+import useGetLiveWeather from '@/_main/queries/useGetLiveWeather';
+import usePostArticle from '@/_main/queries/usePostArticle';
 
+import BasicButton from '@/@shared/elements/BasicButton';
+import BasicInput from '@/@shared/elements/BasicInput';
+import BasicImage from '@/@shared/elements/BasicImage';
+import BasicTextarea from '@/@shared/elements/BasicTextarea';
+import Drawer from '@/@shared/elements/Drawer';
+import TempInfo from '@/@shared/elements/TempInfo';
+import Text from '@/@shared/elements/Text';
+
+import { IconUpload } from '@/statics/icons';
 import { useDrawerActions, useWriteDrawerState } from '@/stores/useDrawerStore';
-import useGetLiveWeather from '@/hooks/main/useGetLiveWeather';
-import useGetDailyWeather from '@/hooks/main/useGetDailyWeather';
-import useGetCityName from '@/hooks/main/useGetCityName';
-import usePostArticle from '@/hooks/main/usePostArticle';
 import type { TLocation } from '@/types/locationTypes';
 import type { TSubmitForm } from '@/types/articleTypes';
-import { IconUpload } from '@/statics/icons';
 
 import * as S from './index.styles';
 
@@ -38,11 +39,19 @@ const WriteDrawer = ({ location }: Props) => {
     reValidateMode: 'onChange',
   });
 
-  const { mutate: postFile, status: postFileStatus } = usePostArticle(reset);
+  const isOpen = useWriteDrawerState();
+  const { changeDrawerState } = useDrawerActions();
+  const handleClickCloseButton = () => {
+    changeDrawerState('write');
+    reset();
+  };
+
+  const imageFile = watch('image');
+  const { data: cityNameData } = useGetCityName(location);
   const { data: liveWeatherData } = useGetLiveWeather(location);
   const { data: dailyWeatherData } = useGetDailyWeather(location);
-  const { data: cityNameData } = useGetCityName(location);
-  const imageFile = watch('image');
+
+  const { mutate: postFile, status: postFileStatus } = usePostArticle(reset);
   const handleClickSubmitButton = (data: TSubmitForm) => {
     if (!liveWeatherData || !dailyWeatherData || !cityNameData || !data.image) return;
     postFile({
@@ -56,11 +65,8 @@ const WriteDrawer = ({ location }: Props) => {
     });
   };
 
-  const isOpen = useWriteDrawerState();
-  const { changeDrawerState } = useDrawerActions();
-  const handleClickCloseButton = () => {
-    changeDrawerState('write');
-    reset();
+  const handleClickCancel = () => {
+    reset((value) => ({ ...value, image: null }));
   };
 
   return (
@@ -84,7 +90,9 @@ const WriteDrawer = ({ location }: Props) => {
               <Text variant="head_03">오늘의 사진</Text>
               <div>
                 {imageFile ? (
-                  <PreviewImage src={URL.createObjectURL(imageFile[0])} reset={reset} />
+                  <BasicImage src={URL.createObjectURL(imageFile[0])}>
+                    <BasicImage.Cancel handleClickCancel={handleClickCancel} />
+                  </BasicImage>
                 ) : (
                   <>
                     <label htmlFor="write-image-input">
@@ -122,7 +130,7 @@ const WriteDrawer = ({ location }: Props) => {
 
           <Drawer.Bottom>
             <BasicButton
-              disabled={isSubmitting || postFileStatus === 'loading'}
+              loading={isSubmitting || postFileStatus === 'loading'}
               type="submit"
               onClick={onSubmit(handleClickSubmitButton)}>
               등록

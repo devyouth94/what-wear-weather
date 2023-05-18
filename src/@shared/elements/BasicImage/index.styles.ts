@@ -1,15 +1,16 @@
+import Image from 'next/image';
 import styled from '@emotion/styled';
 
-export const PreviewImage = styled.div`
+export const Container = styled.div`
   position: relative;
 
   width: 100%;
   aspect-ratio: 3 / 4;
+`;
 
-  img {
-    border-radius: 12px;
-    object-fit: cover;
-  }
+export const ArticleImage = styled(Image)`
+  border-radius: 12px;
+  object-fit: cover;
 `;
 
 export const CancelButton = styled.div`

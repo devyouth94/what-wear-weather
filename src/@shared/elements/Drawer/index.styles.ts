@@ -15,14 +15,18 @@ export const Drawer = styled(motion.div)`
   right: 0;
   left: 0;
   z-index: 99;
+  overscroll-behavior-y: contain;
 
   width: 100%;
-  min-height: 100vh;
+  min-width: 375px;
+  height: 100dvh;
   background-color: ${({ theme }) => theme.colors.main_01};
 `;
 
 export const DrawerHeader = styled.header`
   position: fixed;
+  left: 0;
+  right: 0;
   top: 0;
 
   display: flex;
@@ -30,7 +34,9 @@ export const DrawerHeader = styled.header`
   justify-content: space-between;
 
   width: 100%;
-  padding: 20px;
+  min-width: 375px;
+  height: 82px;
+  padding: 0 20px;
   background-color: ${({ theme }) => theme.colors.main_01};
 `;
 
@@ -39,24 +45,27 @@ export const DrawerBody = styled.main`
   flex-direction: column;
   gap: 20px;
 
-  height: calc(100vh - 170px);
+  height: calc(100dvh - 170px);
   margin-top: 82px;
   padding: 0 20px;
 
+  color: ${({ theme }) => theme.colors.secondary_01};
+
+  overscroll-behavior-y: contain;
   overflow-y: overlay;
   &::-webkit-scrollbar {
     width: 6px;
   }
   &::-webkit-scrollbar-thumb {
     background-color: #708488;
-    border-radius: 0.25rem;
+    border-radius: 99px;
   }
-
-  color: ${({ theme }) => theme.colors.secondary_01};
 `;
 
 export const DrawerBottom = styled.nav`
   position: fixed;
+  left: 0;
+  right: 0;
   bottom: 0;
 
   display: flex;
@@ -64,6 +73,8 @@ export const DrawerBottom = styled.nav`
   gap: 10px;
 
   width: 100%;
-  padding: 20px;
+  min-width: 375px;
+  height: 88px;
+  padding: 0 20px;
   background-color: ${({ theme }) => theme.colors.main_01};
 `;
