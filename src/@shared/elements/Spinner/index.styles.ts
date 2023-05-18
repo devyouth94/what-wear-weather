@@ -11,11 +11,10 @@ const SpinnerKeyframes = keyframes`
 export const Spinner = styled.div<Required<SpinnerProps>>`
   position: absolute;
   z-index: 999;
+  margin-top: ${({ size }) => `calc(-${size}px * 4)`};
 
   color: ${({ theme, color }) => theme.colors[color]};
   font-size: ${({ size }) => `${size}px`};
-  text-indent: -9999em;
-  transform: translateZ(0);
   animation-delay: -0.16s;
 
   &,
