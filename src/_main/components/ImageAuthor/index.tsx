@@ -1,4 +1,4 @@
-import Text from '@/elements/Text';
+import Text from '@/@shared/elements/Text';
 import { useBackgroundImageState } from '@/stores/useBackgroundImageStore';
 
 import * as S from './index.styles';
