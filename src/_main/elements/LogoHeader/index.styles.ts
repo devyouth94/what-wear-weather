@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const Header = styled.header`
+export const LogoHeader = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;

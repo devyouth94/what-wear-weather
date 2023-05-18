@@ -2,8 +2,8 @@ import { GetServerSideProps } from 'next';
 import { getServerSession } from 'next-auth';
 
 import LoginContainer from '@/_login/components/LoginContainer';
-import SimpleLogo from '@/_login/elements/SimpleLogo';
 
+import SimpleLogo from '@/@shared/elements/SimpleLogo';
 import Layout from '@/@shared/elements/Layout';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
