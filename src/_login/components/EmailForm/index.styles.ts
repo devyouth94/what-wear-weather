@@ -1,18 +1,16 @@
 import styled from '@emotion/styled';
+import { motion } from 'framer-motion';
 
-export const LoginButtonContainer = styled.section`
+export const EmailForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 12px;
 
   width: 100%;
-  margin-top: 40px;
 `;
 
-export const EmailFormContainer = styled.form`
+export const MotionContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 8px;
-
-  width: 100%;
 `;
