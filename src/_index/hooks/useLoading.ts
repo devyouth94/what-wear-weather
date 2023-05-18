@@ -11,13 +11,13 @@ const useLoading = () => {
     const timer = setTimeout(() => {
       setIsLoading(true);
 
-      // if (status === 'authenticated') {
-      //   push('/main');
-      // }
+      if (status === 'authenticated') {
+        push('/main');
+      }
 
-      // if (status === 'unauthenticated') {
-      //   push('/login');
-      // }
+      if (status === 'unauthenticated') {
+        push('/login');
+      }
     }, 2000);
 
     return () => {
