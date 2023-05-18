@@ -2,14 +2,18 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import fontTheme from '@/styles/fontTheme';
-import type { BasicButtonProps } from './index.types';
+import type { BasicButtonStyleProps } from './index.types';
 
-export const Button = styled.button<Required<BasicButtonProps>>`
+export const Button = styled.button<Required<BasicButtonStyleProps>>`
   ${({ theme, color, variant }) => {
     switch (variant) {
       case 'solid': {
         return css`
           background-color: ${theme.colors[color]};
+
+          &:disabled {
+            background-color: ${theme.colors.point_02};
+          }
         `;
       }
       case 'outline': {
@@ -21,9 +25,11 @@ export const Button = styled.button<Required<BasicButtonProps>>`
     }
   }}
 
-  &:disabled {
-    background-color: ${({ theme }) => theme.colors.point_02};
-  }
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   width: 100%;
   height: 48px;
