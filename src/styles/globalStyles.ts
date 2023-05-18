@@ -57,13 +57,12 @@ export const globalStyles = css`
 
   body {
     overflow-y: overlay;
-
     &::-webkit-scrollbar {
       width: 6px;
     }
     &::-webkit-scrollbar-thumb {
       background-color: #708488;
-      border-radius: 0.25rem;
+      border-radius: 99px;
     }
   }
 `;
