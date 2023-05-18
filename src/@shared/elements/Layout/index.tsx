@@ -1,8 +1,9 @@
 import React from 'react';
-import * as S from './index.styles';
-import type { LayoutProps } from './index.types';
-import { AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
+import { AnimatePresence } from 'framer-motion';
+
+import type { LayoutProps } from './index.types';
+import * as S from './index.styles';
 
 const Layout = ({
   children,
