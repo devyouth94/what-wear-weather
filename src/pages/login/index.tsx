@@ -1,17 +1,17 @@
 import { GetServerSideProps } from 'next';
 import { getServerSession } from 'next-auth';
 
+import LoginContainer from '@/_login/components/LoginContainer';
+import SimpleLogo from '@/_login/elements/SimpleLogo';
+
+import Layout from '@/@shared/elements/Layout';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
-import Layout from '@/elements/Layout';
-import SimpleLogo from '@/elements/SimpleLogo';
-import LoginForm from '@/components/LoginForm';
 
 const Login = () => {
   return (
     <Layout center>
       <SimpleLogo />
-
-      <LoginForm />
+      <LoginContainer />
     </Layout>
   );
 };
