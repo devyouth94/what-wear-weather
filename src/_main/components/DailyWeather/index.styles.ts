@@ -38,14 +38,18 @@ export const WeatherIcon = styled.div`
 
 export const Temperature = styled.div`
   display: grid;
-  grid-template-columns: 40px 75px 40px;
+  grid-template-columns: 40px 80px 40px;
   justify-content: flex-end;
   align-items: center;
   gap: 10px;
 
   span {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: flex-start;
+  }
+
+  span:nth-of-type(1) {
+    justify-content: flex-end;
   }
 `;

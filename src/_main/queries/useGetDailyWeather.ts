@@ -21,8 +21,12 @@ const useGetDailyWeather = (location: TLocation) => {
           temp_max: changeInteger(item.temp.max),
         })),
         week: {
-          min: changeInteger(Math.min(...data.daily.map((item: any) => item.temp.min))),
-          max: changeInteger(Math.max(...data.daily.map((item: any) => item.temp.max))),
+          min: changeInteger(
+            Math.min(...data.daily.map((item: { temp: { min: number } }) => item.temp.min)),
+          ),
+          max: changeInteger(
+            Math.max(...data.daily.map((item: { temp: { max: number } }) => item.temp.max)),
+          ),
         },
       }),
     },
