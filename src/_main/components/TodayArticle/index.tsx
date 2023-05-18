@@ -1,8 +1,7 @@
-import Text from '@/elements/Text';
-import BasicButton from '@/elements/BasicButton';
-import ArticleItem from '@/components/ArticleItem';
+import ArticleItem from '@/@shared/components/ArticleItem';
+import useGetTodayArticle from '@/_main/queries/useGetTodayArticle';
 
-import useGetTodayArticle from '@/hooks/main/useGetTodayArticle';
+import BasicButton from '@/@shared/elements/BasicButton';
 import { useDrawerActions } from '@/stores/useDrawerStore';
 
 import * as S from './index.styles';
@@ -23,7 +22,7 @@ const TodayArticle = () => {
 
       {data && data.result && (
         <S.TodayWear>
-          <Text variant="head_02">Today&apos;s Wear</Text>
+          <S.TodayWearText variant="head_02">Today&apos;s Wear</S.TodayWearText>
           <ArticleItem {...data.result} />
         </S.TodayWear>
       )}

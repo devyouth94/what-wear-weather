@@ -21,7 +21,7 @@ const BasicButton = ({
       fontColor={fontColor}
       disabled={loading || disabled}
       {...rest}>
-      {loading ? <Spinner size={5} /> : children}
+      {loading ? <Spinner size={4} /> : children}
     </S.Button>
   );
 };
