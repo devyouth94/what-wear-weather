@@ -23,6 +23,12 @@ export const globalStyles = css`
     overflow-wrap: break-word;
     -moz-tab-size: 4;
     tab-size: 4;
+
+    /* react-toastify css */
+    --toastify-color-info: #2ebbb1;
+    --toastify-color-success: #42be52;
+    --toastify-color-warning: #d2b334;
+    --toastify-color-error: #ba6344;
   }
 
   img,
@@ -50,9 +56,6 @@ export const globalStyles = css`
   }
 
   body {
-    height: 100vh;
-    min-height: 100vh;
-
     overflow-y: overlay;
 
     &::-webkit-scrollbar {
@@ -62,19 +65,5 @@ export const globalStyles = css`
       background-color: #708488;
       border-radius: 0.25rem;
     }
-  }
-
-  @supports (-webkit-touch-callout: none) {
-    body {
-      height: -webkit-fill-available;
-      min-height: -webkit-fill-available;
-    }
-  }
-
-  :root {
-    --toastify-color-info: #2ebbb1;
-    --toastify-color-success: #42be52;
-    --toastify-color-warning: #d2b334;
-    --toastify-color-error: #ba6344;
   }
 `;
