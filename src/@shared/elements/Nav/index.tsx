@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 
 import { IconExplore, IconMain, IconMypage } from '@/statics/icons';
+
 import * as S from './index.styles';
 
 const NAV_ARR = [
