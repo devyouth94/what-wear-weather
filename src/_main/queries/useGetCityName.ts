@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { getCityName } from '@/apis/weatherApi';
-
 import type { TLocation } from '@/types/locationTypes';
 import type { TCityName } from '@/types/weatherTypes';
 

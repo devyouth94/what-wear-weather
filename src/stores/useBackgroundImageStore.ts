@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+
 import type { TWeatherImage } from '@/types/weatherTypes';
 
 interface StoreState {

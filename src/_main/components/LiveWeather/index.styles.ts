@@ -8,7 +8,7 @@ export const LiveWeather = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
 
   width: calc(100% + 40px);
   height: 190px;
@@ -18,7 +18,7 @@ export const LiveWeather = styled.section`
 
 export const WeatherBadge = styled.div`
   width: fit-content;
-  padding: 3px 12px;
+  padding: 4px 8px;
   background-color: ${({ theme }) => theme.colors.secondary_01};
   border-radius: 999px;
 

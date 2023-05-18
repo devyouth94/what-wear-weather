@@ -5,7 +5,6 @@ import { WEATHER_IMAGE } from '@/constants/weatherImage';
 import { changeInteger } from '@/utils/changeInteger';
 import { shortNowTime } from '@/utils/timeCalculate';
 import { useBackgroundImageActions } from '@/stores/useBackgroundImageStore';
-
 import type { TLocation } from '@/types/locationTypes';
 import type { TLiveWeather } from '@/types/weatherTypes';
 
