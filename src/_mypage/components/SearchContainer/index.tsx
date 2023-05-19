@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import Text from '@/elements/Text';
-import Slider from '@/elements/Slider';
+import Slider from '@/@shared/elements/Slider';
+import Text from '@/@shared/elements/Text';
 
 import * as S from './index.styles';
 
@@ -29,6 +29,7 @@ const SearchContainer = ({ handleClickSearch }: Props) => {
         />
         <Text variant="head_03">{tempInput[1]}&#8451;</Text>
       </div>
+
       <button onClick={() => handleClickSearch(tempInput)}>검색</button>
     </S.Container>
   );

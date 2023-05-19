@@ -1,7 +1,7 @@
-import ArticleItem from '@/components/ArticleItem';
-import ArticleContainer from '@/components/ArticleContainer';
+import ArticleContainer from '@/_mypage/elements/ArticleContainer';
+import useGetArticles from '@/_mypage/queries/useGetArticles';
 
-import useGetArticles from '@/hooks/mypage/useGetArticles';
+import ArticleItem from '@/@shared/components/ArticleItem';
 
 const ArticleByRecent = () => {
   const { data: articlesData } = useGetArticles();

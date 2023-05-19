@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import ArticleItem from '@/components/ArticleItem';
-import ArticleContainer from '@/components/ArticleContainer';
-import SearchContainer from '@/components/SearchContainer';
 
-import useGetArticlesBySearch from '@/hooks/mypage/useGetArticlesBySearch';
+import ArticleContainer from '@/_mypage/elements/ArticleContainer';
+import SearchContainer from '@/_mypage/components/SearchContainer';
+import useGetArticlesBySearch from '@/_mypage/queries/useGetArticlesBySearch';
+
+import ArticleItem from '@/@shared/components/ArticleItem';
 
 const ArticleByTemp = () => {
   const [selectedTemp, setSelectedTemp] = useState([-20, 40]);

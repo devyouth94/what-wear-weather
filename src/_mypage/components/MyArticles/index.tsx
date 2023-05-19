@@ -1,8 +1,7 @@
-import FilterButton from '@/components/FilterButton';
-import ArticleByRecent from '@/components/ArticleByRecent';
-import ArticleByTemp from '@/components/ArticleByTemp';
-
-import useFilterState from '@/hooks/mypage/useFilterState';
+import ArticleByRecent from '@/_mypage/components/ArticleByRecent';
+import ArticleByTemp from '@/_mypage/components/ArticleByTemp';
+import FilterButton from '@/_mypage/components/FilterButton';
+import useFilterState from '@/_mypage/hooks/useFilterState';
 
 import * as S from './index.styles';
 

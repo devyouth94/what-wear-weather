@@ -13,7 +13,7 @@ export const Container = styled.div`
     gap: 12px;
 
     width: 100%;
-    height: 60px;
+    height: 50px;
 
     & > span {
       display: flex;
@@ -27,7 +27,7 @@ export const Container = styled.div`
 
   button {
     width: fit-content;
-    padding: 3px 12px;
+    padding: 4px 8px;
     background-color: ${({ theme }) => theme.colors.secondary_01};
     border-radius: 999px;
 
