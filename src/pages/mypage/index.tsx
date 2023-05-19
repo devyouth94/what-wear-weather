@@ -3,17 +3,18 @@ import { getServerSession } from 'next-auth';
 import { useSession } from 'next-auth/react';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
-import SettingModal from '@/components/SettingModal';
-import ProfileDrawer from '@/components/ProfileDrawer';
-import Layout from '@/elements/Layout';
-import Text from '@/elements/Text';
-import UserInfo from '@/components/UserInfo';
-import MyArticles from '@/components/MyArticles';
-import Nav from '@/components/Nav';
+import MyArticles from '@/_mypage/components/MyArticles';
+import SettingModal from '@/_mypage/components/SettingModal';
+import ProfileDrawer from '@/_mypage/components/ProfileDrawer';
+import UserInfo from '@/_mypage/components/UserInfo';
+
+import ArticleDrawer from '@/@shared/components/ArticleDrawer';
+import Layout from '@/@shared/elements/Layout';
+import Nav from '@/@shared/elements/Nav';
+import Text from '@/@shared/elements/Text';
 
 import { IconDrawer } from '@/statics/icons';
 import { useModalActions } from '@/stores/useModalStore';
-import ArticleDrawer from '@/components/ArticleDrawer';
 
 const Mypage = () => {
   const { data, status } = useSession();
