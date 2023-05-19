@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 export const Drawer = styled(motion.div)`
   @media (min-width: 640px) {
     left: 50%;
-    transform: translate(-50%);
+    transform: translateX(-50%);
 
     width: 375px;
   }

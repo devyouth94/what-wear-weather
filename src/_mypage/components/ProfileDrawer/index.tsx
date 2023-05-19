@@ -1,13 +1,13 @@
 import { useForm } from 'react-hook-form';
 import type { Session } from 'next-auth';
 
-import Drawer from '@/components/Drawer';
-import BasicButton from '@/elements/BasicButton';
-import Text from '@/elements/Text';
-import BasicInput from '@/elements/BasicInput';
-import ProfileImage from '@/components/ProfileImage';
+import ProfileImage from '@/_mypage/elements/ProfileImage';
+import usePostProfile from '@/_mypage/queries/usePostProfile';
 
-import usePostProfile from '@/hooks/mypage/usePostProfile';
+import BasicButton from '@/@shared/elements/BasicButton';
+import BasicInput from '@/@shared/elements/BasicInput';
+import Drawer from '@/@shared/elements/Drawer';
+import Text from '@/@shared/elements/Text';
 import { useDrawerActions, useProfileDrawerState } from '@/stores/useDrawerStore';
 import { IconUpload } from '@/statics/icons';
 import type { TProfileForm } from '@/types/articleTypes';
@@ -36,8 +36,8 @@ const ProfileDrawer = ({ data }: Props) => {
     reset();
   };
 
-  const { mutate: postProfile, status: postProfileStatus } = usePostProfile();
   const imageFile = watch('image');
+  const { mutate: postProfile, status: postProfileStatus } = usePostProfile();
   const handleSubmit = (data: TProfileForm) => {
     postProfile({ nickname: data.nickname, image: data.image ? data.image[0] : null });
   };
@@ -99,11 +99,8 @@ const ProfileDrawer = ({ data }: Props) => {
 
       <Drawer.Bottom>
         <BasicButton
-          disabled={
-            isSubmitting ||
-            postProfileStatus === 'loading' ||
-            (data?.user?.name === watch('nickname') && !(imageFile && imageFile[0]))
-          }
+          loading={isSubmitting || postProfileStatus === 'loading'}
+          disabled={data?.user?.name === watch('nickname') && !(imageFile && imageFile[0])}
           onClick={onSubmit(handleSubmit)}>
           완료
         </BasicButton>

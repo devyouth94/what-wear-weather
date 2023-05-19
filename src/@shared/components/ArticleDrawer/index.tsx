@@ -33,7 +33,9 @@ const ArticleDrawer = () => {
           <Drawer.Header>{longNowTime(articleData.createdAt).split('일')[0]}일</Drawer.Header>
 
           <Drawer.Body>
-            <BasicImage src={articleData.image} />
+            <div>
+              <BasicImage src={articleData.image} />
+            </div>
 
             <S.TempInfoContainer>
               <Text variant="head_03">그날의 온도</Text>

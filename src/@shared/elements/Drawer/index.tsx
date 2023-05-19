@@ -1,4 +1,5 @@
 import { AnimatePresence } from 'framer-motion';
+import { useMediaQuery } from 'react-responsive';
 
 import Text from '@/@shared/elements/Text';
 
@@ -9,16 +10,20 @@ interface Props {
 }
 
 const Drawer = ({ children, isOpen }: React.PropsWithChildren<Props>) => {
+  const isSmall = useMediaQuery({ query: '(min-width: 640px)' });
+
   return (
-    <>
+    <AnimatePresence mode="wait">
       {isOpen && (
-        <AnimatePresence>
-          <S.Drawer initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            {children}
-          </S.Drawer>
-        </AnimatePresence>
+        <S.Drawer
+          initial={{ x: isSmall ? '-50%' : 0, y: '100dvh' }}
+          animate={{ x: isSmall ? '-50%' : 0, y: 0 }}
+          transition={{ easeInOut: [0.47, 0.14, 0.55, 0.89] }}
+          exit={{ x: isSmall ? '-50%' : 0, y: '100dvh' }}>
+          {children}
+        </S.Drawer>
       )}
-    </>
+    </AnimatePresence>
   );
 };
 
