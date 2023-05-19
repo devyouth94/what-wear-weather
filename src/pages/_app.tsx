@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -9,7 +10,6 @@ import 'react-toastify/dist/ReactToastify.min.css';
 
 import globalTheme from '@/styles/globalTheme';
 import { globalStyles } from '@/styles/globalStyles';
-import Head from 'next/head';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(
