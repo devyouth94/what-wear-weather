@@ -12,12 +12,7 @@ import globalTheme from '@/styles/globalTheme';
 import { globalStyles } from '@/styles/globalStyles';
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: { queries: { refetchOnWindowFocus: false } },
-      }),
-  );
+  const [queryClient] = useState(() => new QueryClient());
 
   return (
     <QueryClientProvider client={queryClient}>
