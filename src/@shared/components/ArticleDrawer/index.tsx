@@ -5,6 +5,7 @@ import TempInfo from '@/@shared/elements/TempInfo';
 import Text from '@/@shared/elements/Text';
 import useGetArticle from '@/@shared/hooks/useGetArticle';
 import useDeleteArticle from '@/@shared/hooks/useDeleteArticle';
+import useModalHistoryBack from '@/@shared/hooks/useModalHistoryBack';
 
 import { useArticleDrawerState, useDrawerActions } from '@/stores/useDrawerStore';
 import { longNowTime } from '@/utils/timeCalculate';
@@ -17,9 +18,7 @@ const ArticleDrawer = () => {
 
   const isOpen = useArticleDrawerState();
   const { changeSelectedId } = useDrawerActions();
-  const handleClickCloseButton = () => {
-    changeSelectedId(null);
-  };
+  const { handleClickCloseButton } = useModalHistoryBack('articleId', () => changeSelectedId(null));
 
   const handleClickDelete = () => {
     if (!articleData) return;

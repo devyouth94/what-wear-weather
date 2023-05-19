@@ -12,6 +12,7 @@ import BasicTextarea from '@/@shared/elements/BasicTextarea';
 import Drawer from '@/@shared/elements/Drawer';
 import TempInfo from '@/@shared/elements/TempInfo';
 import Text from '@/@shared/elements/Text';
+import useModalHistoryBack from '@/@shared/hooks/useModalHistoryBack';
 
 import { IconUpload } from '@/statics/icons';
 import { useDrawerActions, useWriteDrawerState } from '@/stores/useDrawerStore';
@@ -41,10 +42,10 @@ const WriteDrawer = ({ location }: Props) => {
 
   const isOpen = useWriteDrawerState();
   const { changeDrawerState } = useDrawerActions();
-  const handleClickCloseButton = () => {
+  const { handleClickCloseButton } = useModalHistoryBack('write', () => {
     changeDrawerState('write');
     reset();
-  };
+  });
 
   const imageFile = watch('image');
   const { data: cityNameData } = useGetCityName(location);

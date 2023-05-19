@@ -1,5 +1,6 @@
 import BasicImage from '@/@shared/elements/BasicImage';
 import Text from '@/@shared/elements/Text';
+import useModalHistoryPush from '@/@shared/hooks/useModalHistoryPush';
 
 import { longNowTime } from '@/utils/timeCalculate';
 import { useDrawerActions } from '@/stores/useDrawerStore';
@@ -9,13 +10,19 @@ import * as S from './index.styles';
 
 const ArticleItem = ({ ...article }: TGetArticle) => {
   const { changeSelectedId } = useDrawerActions();
+  const { historyPush } = useModalHistoryPush('articleId', article.id);
 
   const now = longNowTime(article.createdAt).split('일');
   const date = `${now[0]}일`;
   const time = now[1];
 
+  const handleClickImage = () => {
+    changeSelectedId(article.id);
+    historyPush();
+  };
+
   return (
-    <BasicImage src={article.image} handleClickImage={() => changeSelectedId(article.id)}>
+    <BasicImage src={article.image} handleClickImage={handleClickImage}>
       <S.ArticleInfo>
         <Text variant="head_02">{article.temp_now}&#8451;</Text>
         <div>

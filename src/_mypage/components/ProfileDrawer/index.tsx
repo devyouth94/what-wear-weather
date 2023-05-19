@@ -8,6 +8,7 @@ import BasicButton from '@/@shared/elements/BasicButton';
 import BasicInput from '@/@shared/elements/BasicInput';
 import Drawer from '@/@shared/elements/Drawer';
 import Text from '@/@shared/elements/Text';
+import useModalHistoryBack from '@/@shared/hooks/useModalHistoryBack';
 import { useDrawerActions, useProfileDrawerState } from '@/stores/useDrawerStore';
 import { IconUpload } from '@/statics/icons';
 import type { TProfileForm } from '@/types/articleTypes';
@@ -31,10 +32,10 @@ const ProfileDrawer = ({ data }: Props) => {
 
   const isOpen = useProfileDrawerState();
   const { changeDrawerState } = useDrawerActions();
-  const handleClickCloseButton = () => {
+  const { handleClickCloseButton } = useModalHistoryBack('profile', () => {
     changeDrawerState('profile');
     reset();
-  };
+  });
 
   const imageFile = watch('image');
   const { mutate: postProfile, status: postProfileStatus } = usePostProfile();
