@@ -1,21 +1,15 @@
-import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
+import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 
 import { postProfile } from '@/apis/api';
-import { useDrawerActions } from '@/stores/useDrawerStore';
-import { toast } from 'react-toastify';
-import { useModalActions } from '@/stores/useModalStore';
 
 const usePostProfile = () => {
-  const { changeDrawerState } = useDrawerActions();
-  const { changeModalState } = useModalActions();
-  const { replace } = useRouter();
+  const { back } = useRouter();
 
   return useMutation(postProfile, {
     onSettled: () => {
-      changeDrawerState('profile');
-      changeModalState('setting');
-      replace('/mypage');
+      back();
     },
     onSuccess: () => {
       const event = new Event('visibilitychange');

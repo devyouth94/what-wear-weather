@@ -1,16 +1,16 @@
+import { useRouter } from 'next/router';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-
 import { toast } from 'react-toastify';
+
 import { deleteArticle } from '@/apis/api';
-import { useDrawerActions } from '@/stores/useDrawerStore';
 
 const useDeleteArticle = () => {
+  const { back } = useRouter();
   const queryClient = useQueryClient();
-  const { changeSelectedId } = useDrawerActions();
 
   return useMutation(deleteArticle, {
     onSettled: () => {
-      changeSelectedId(null);
+      back();
     },
     onSuccess: () => {
       queryClient.invalidateQueries(['article']);
