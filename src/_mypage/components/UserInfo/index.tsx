@@ -1,7 +1,8 @@
 import { useSession } from 'next-auth/react';
 
-import ProfileImage from '@/components/ProfileImage';
-import Text from '@/elements/Text';
+import ProfileImage from '@/_mypage/elements/ProfileImage';
+
+import Text from '@/@shared/elements/Text';
 
 import * as S from './index.styles';
 

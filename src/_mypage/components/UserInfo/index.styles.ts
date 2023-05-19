@@ -6,6 +6,7 @@ export const Container = styled.section`
   align-items: center;
 
   padding-top: 85px;
+  height: 150px;
 `;
 
 export const TextContainer = styled.div`
