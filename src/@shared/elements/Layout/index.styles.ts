@@ -26,6 +26,10 @@ export const LayoutHeader = styled.header`
   width: 100%;
   padding: 20px;
   background-color: ${({ theme }) => theme.colors.main_01};
+
+  svg {
+    cursor: pointer;
+  }
 `;
 
 export const Layout = styled.main<Partial<LayoutStyleProps>>`
@@ -69,6 +73,7 @@ export const MotionLayout = styled(motion.div)<Partial<LayoutStyleProps>>`
           align-items: center;
 
           height: 100dvh;
+          padding: 0 20px;
         `
       : css`
           min-height: 100dvh;
