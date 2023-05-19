@@ -4,7 +4,7 @@ const useModalHistoryPush = (queryName: string, queryValue: string) => {
   const { push, query } = useRouter();
 
   const historyPush = () => {
-    push({ query: { ...query, [queryName]: queryValue } });
+    push({ query: { ...query, [queryName]: queryValue } }, undefined, { scroll: false });
   };
 
   return { historyPush };
