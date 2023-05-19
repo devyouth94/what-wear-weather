@@ -3,9 +3,9 @@ import BasicImage from '@/@shared/elements/BasicImage';
 import Drawer from '@/@shared/elements/Drawer';
 import TempInfo from '@/@shared/elements/TempInfo';
 import Text from '@/@shared/elements/Text';
-import useGetArticle from '@/@shared/hooks/useGetArticle';
-import useDeleteArticle from '@/@shared/hooks/useDeleteArticle';
 import useModalHistoryBack from '@/@shared/hooks/useModalHistoryBack';
+import useGetArticle from '@/@shared/queries/useGetArticle';
+import useDeleteArticle from '@/@shared/queries/useDeleteArticle';
 
 import { useArticleDrawerState, useDrawerActions } from '@/stores/useDrawerStore';
 import { longNowTime } from '@/utils/timeCalculate';
