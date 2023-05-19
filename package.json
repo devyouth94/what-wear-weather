@@ -51,6 +51,7 @@
     "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-react": "^7.32.2",
+    "next-pwa": "^5.6.0",
     "postcss": "^8.4.21",
     "postcss-100vh-fix": "^1.0.2",
     "prettier": "^2.8.4",
