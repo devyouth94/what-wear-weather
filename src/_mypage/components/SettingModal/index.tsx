@@ -1,20 +1,20 @@
-import Modal from '@/components/Modal';
-import Text from '@/elements/Text';
+import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
+import Modal from '@/@shared/elements/Modal';
+import Text from '@/@shared/elements/Text';
 import { useDrawerActions } from '@/stores/useDrawerStore';
 import { useModalActions, useSettingModalState } from '@/stores/useModalStore';
 import { IconClose } from '@/statics/icons';
 
 import * as S from './index.styles';
-import { signOut } from 'next-auth/react';
-import { useRouter } from 'next/router';
 
 const SettingModal = () => {
+  const { replace } = useRouter();
+
   const isOpen = useSettingModalState();
   const { changeDrawerState } = useDrawerActions();
   const { changeModalState } = useModalActions();
-
-  const { replace } = useRouter();
 
   return (
     <Modal isOpen={isOpen}>
@@ -37,6 +37,7 @@ const SettingModal = () => {
           </Text>
         </S.ContextContainer>
       </Modal.Contents>
+
       <Modal.Overlay onClick={() => changeModalState('setting')} />
     </Modal>
   );

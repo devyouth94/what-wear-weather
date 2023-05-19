@@ -1,7 +1,9 @@
-import fontTheme from '@/styles/fontTheme';
 import styled from '@emotion/styled';
 
-export const Modal = styled.div`
+import fontTheme from '@/styles/fontTheme';
+import { motion } from 'framer-motion';
+
+export const Modal = styled(motion.div)`
   @media (min-width: 640px) {
     left: 50%;
     transform: translate(-50%);
@@ -17,25 +19,17 @@ export const Modal = styled.div`
   z-index: 99;
 
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
 `;
 
-export const ModalOverlay = styled.div`
-  width: 100%;
-  height: 100%;
-
-  background-color: black;
-  opacity: 0.5;
-`;
-
-export const ModalContents = styled.div`
+export const ModalContents = styled(motion.div)`
   position: absolute;
   top: 0;
   right: 0;
-  z-index: 9;
+  z-index: 999;
 
   width: 170px;
-  height: calc(100vh - 62px);
+  height: calc(100dvh - 62px);
   padding: 26px 20px 20px 20px;
   background-color: ${({ theme }) => theme.colors.main_01};
   border-radius: 12px 0 0 12px;

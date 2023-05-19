@@ -3,6 +3,10 @@ import styled from '@emotion/styled';
 export const CloseContainer = styled.div`
   display: flex;
   justify-content: flex-end;
+
+  svg {
+    cursor: pointer;
+  }
 `;
 
 export const ContextContainer = styled.div`
@@ -13,6 +17,11 @@ export const ContextContainer = styled.div`
   margin-top: 30px;
 
   span {
+    display: flex;
+    align-items: center;
+
+    height: 30px;
+
     cursor: pointer;
   }
 `;
