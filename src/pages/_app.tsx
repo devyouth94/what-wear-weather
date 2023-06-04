@@ -19,13 +19,19 @@ export default function App({ Component, pageProps }: AppProps) {
       <SessionProvider session={pageProps.session}>
         <ThemeProvider theme={globalTheme}>
           <Head>
+            <title>왓웨어웨더. | 그날의 옷을 저장하세요</title>
+            <link rel="manifest" href="/manifest.json" />
+            <meta name="theme-color" content="#2C3639" />
             <meta
               name="viewport"
               content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width"
             />
           </Head>
+
           <Global styles={globalStyles} />
+
           <Component {...pageProps} />
+
           <ToastContainer
             position="bottom-center"
             autoClose={3000}
@@ -34,6 +40,7 @@ export default function App({ Component, pageProps }: AppProps) {
           />
         </ThemeProvider>
       </SessionProvider>
+
       <ReactQueryDevtools />
     </QueryClientProvider>
   );
