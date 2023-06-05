@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-const useModalHistoryBack = (queryName: string, modalControlFunction: () => void) => {
+const useModalHistoryBack = (queryName: string, modalControlFunction?: () => void) => {
   const { query, events, back } = useRouter();
 
   const handleClickCloseButton = () => {
@@ -11,7 +11,9 @@ const useModalHistoryBack = (queryName: string, modalControlFunction: () => void
 
   const handleClickHistoryBack = () => {
     if (!query[queryName]) return;
-    modalControlFunction();
+    if (modalControlFunction) {
+      modalControlFunction();
+    }
   };
 
   useEffect(() => {
@@ -21,7 +23,7 @@ const useModalHistoryBack = (queryName: string, modalControlFunction: () => void
     };
   }, [query[queryName]]);
 
-  return { handleClickCloseButton };
+  return { query: query[queryName], handleClickCloseButton };
 };
 
 export default useModalHistoryBack;

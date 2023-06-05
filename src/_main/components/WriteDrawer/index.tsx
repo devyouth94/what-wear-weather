@@ -15,7 +15,6 @@ import Text from '@/@shared/elements/Text';
 import useModalHistoryBack from '@/@shared/hooks/useModalHistoryBack';
 
 import { IconUpload } from '@/statics/icons';
-import { useDrawerActions, useWriteDrawerState } from '@/stores/useDrawerStore';
 import type { TLocation } from '@/types/locationTypes';
 import type { TSubmitForm } from '@/types/articleTypes';
 
@@ -40,12 +39,10 @@ const WriteDrawer = ({ location }: Props) => {
     reValidateMode: 'onChange',
   });
 
-  const isOpen = useWriteDrawerState();
-  const { changeDrawerState } = useDrawerActions();
-  const { handleClickCloseButton } = useModalHistoryBack('write', () => {
-    changeDrawerState('write');
+  const { query, handleClickCloseButton } = useModalHistoryBack('write', () => {
     reset();
   });
+  const isOpen = query === 'on';
 
   const imageFile = watch('image');
   const { data: cityNameData } = useGetCityName(location);

@@ -7,7 +7,6 @@ import useModalHistoryBack from '@/@shared/hooks/useModalHistoryBack';
 import useGetArticle from '@/@shared/queries/useGetArticle';
 import useDeleteArticle from '@/@shared/queries/useDeleteArticle';
 
-import { useArticleDrawerState, useDrawerActions } from '@/stores/useDrawerStore';
 import { longNowTime } from '@/utils/timeCalculate';
 
 import * as S from './index.styles';
@@ -16,9 +15,8 @@ const ArticleDrawer = () => {
   const { data: articleData } = useGetArticle();
   const { mutate: deleteArticle, status: deleteArticleStatus } = useDeleteArticle();
 
-  const isOpen = useArticleDrawerState();
-  const { changeSelectedId } = useDrawerActions();
-  const { handleClickCloseButton } = useModalHistoryBack('articleId', () => changeSelectedId(null));
+  const { query, handleClickCloseButton } = useModalHistoryBack('articleId');
+  const isOpen = !!query;
 
   const handleClickDelete = () => {
     if (!articleData) return;
@@ -28,7 +26,7 @@ const ArticleDrawer = () => {
   return (
     <>
       {articleData && (
-        <Drawer isOpen={!!isOpen}>
+        <Drawer isOpen={isOpen}>
           <Drawer.Header>{longNowTime(articleData.createdAt).split('일')[0]}일</Drawer.Header>
 
           <Drawer.Body>

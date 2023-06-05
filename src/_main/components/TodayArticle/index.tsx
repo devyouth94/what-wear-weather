@@ -3,7 +3,6 @@ import useGetTodayArticle from '@/_main/queries/useGetTodayArticle';
 
 import BasicButton from '@/@shared/elements/BasicButton';
 import useModalHistoryPush from '@/@shared/hooks/useModalHistoryPush';
-import { useDrawerActions } from '@/stores/useDrawerStore';
 
 import * as S from './index.styles';
 
@@ -11,9 +10,7 @@ const TodayArticle = () => {
   const { data } = useGetTodayArticle();
 
   const { historyPush } = useModalHistoryPush('write', 'on');
-  const { changeDrawerState } = useDrawerActions();
   const handleClickWriteButton = () => {
-    changeDrawerState('write');
     historyPush();
   };
 

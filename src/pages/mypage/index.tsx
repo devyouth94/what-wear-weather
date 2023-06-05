@@ -15,15 +15,12 @@ import Text from '@/@shared/elements/Text';
 import useModalHistoryPush from '@/@shared/hooks/useModalHistoryPush';
 
 import { IconDrawer } from '@/statics/icons';
-import { useModalActions } from '@/stores/useModalStore';
 
 const Mypage = () => {
   const { data, status } = useSession();
 
-  const { changeModalState } = useModalActions();
   const { historyPush } = useModalHistoryPush('setting', 'on');
   const handleClickSetting = () => {
-    changeModalState('setting');
     historyPush();
   };
 

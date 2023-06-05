@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { getArticle } from '@/apis/api';
-import { useArticleDrawerState } from '@/stores/useDrawerStore';
+import { useRouter } from 'next/router';
 
 const useGetArticle = () => {
-  const articleId = useArticleDrawerState();
+  const { query } = useRouter();
+  const articleId = String(query.articleId);
 
   return useQuery(['article', articleId], () => getArticle(articleId), { enabled: !!articleId });
 };

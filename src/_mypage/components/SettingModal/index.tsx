@@ -5,8 +5,6 @@ import Modal from '@/@shared/elements/Modal';
 import Text from '@/@shared/elements/Text';
 import useModalHistoryBack from '@/@shared/hooks/useModalHistoryBack';
 import useModalHistoryPush from '@/@shared/hooks/useModalHistoryPush';
-import { useDrawerActions } from '@/stores/useDrawerStore';
-import { useModalActions, useSettingModalState } from '@/stores/useModalStore';
 import { IconClose } from '@/statics/icons';
 
 import * as S from './index.styles';
@@ -14,16 +12,11 @@ import * as S from './index.styles';
 const SettingModal = () => {
   const { replace } = useRouter();
 
-  const isOpen = useSettingModalState();
-  const { changeModalState } = useModalActions();
-  const { handleClickCloseButton } = useModalHistoryBack('setting', () =>
-    changeModalState('setting'),
-  );
+  const { query, handleClickCloseButton } = useModalHistoryBack('setting');
+  const isOpen = query === 'on';
 
-  const { changeDrawerState } = useDrawerActions();
   const { historyPush } = useModalHistoryPush('profile', 'on');
   const handleClickProfile = () => {
-    changeDrawerState('profile');
     historyPush();
   };
 

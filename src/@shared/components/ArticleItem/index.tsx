@@ -3,13 +3,11 @@ import Text from '@/@shared/elements/Text';
 import useModalHistoryPush from '@/@shared/hooks/useModalHistoryPush';
 
 import { longNowTime } from '@/utils/timeCalculate';
-import { useDrawerActions } from '@/stores/useDrawerStore';
 import type { TGetArticle } from '@/types/articleTypes';
 
 import * as S from './index.styles';
 
 const ArticleItem = ({ ...article }: TGetArticle) => {
-  const { changeSelectedId } = useDrawerActions();
   const { historyPush } = useModalHistoryPush('articleId', article.id);
 
   const now = longNowTime(article.createdAt).split('일');
@@ -17,7 +15,6 @@ const ArticleItem = ({ ...article }: TGetArticle) => {
   const time = now[1];
 
   const handleClickImage = () => {
-    changeSelectedId(article.id);
     historyPush();
   };
 
