@@ -4,17 +4,19 @@ import { useMediaQuery } from 'react-responsive';
 import Text from '@/@shared/elements/Text';
 
 import * as S from './index.styles';
+import { Dialog } from '@headlessui/react';
 
 interface Props {
-  isOpen: boolean;
+  open: boolean;
+  onClose: () => void;
 }
 
-const Drawer = ({ children, isOpen }: React.PropsWithChildren<Props>) => {
+const Drawer = ({ children, open, onClose }: React.PropsWithChildren<Props>) => {
   const isSmall = useMediaQuery({ query: '(min-width: 640px)' });
 
   return (
     <AnimatePresence mode="wait">
-      {isOpen && (
+      <Dialog open={open} onClose={onClose}>
         <S.Drawer
           initial={{ x: isSmall ? '-50%' : 0, y: '100dvh' }}
           animate={{ x: isSmall ? '-50%' : 0, y: 0 }}
@@ -22,7 +24,7 @@ const Drawer = ({ children, isOpen }: React.PropsWithChildren<Props>) => {
           exit={{ x: isSmall ? '-50%' : 0, y: '100dvh' }}>
           {children}
         </S.Drawer>
-      )}
+      </Dialog>
     </AnimatePresence>
   );
 };
@@ -36,7 +38,7 @@ const DrawerHeader = ({ children }: React.PropsWithChildren) => {
 };
 
 const DrawerBody = ({ children }: React.PropsWithChildren) => {
-  return <S.DrawerBody>{children}</S.DrawerBody>;
+  return <S.DrawerBody as="div">{children}</S.DrawerBody>;
 };
 
 const DrawerBottom = ({ children }: React.PropsWithChildren) => {

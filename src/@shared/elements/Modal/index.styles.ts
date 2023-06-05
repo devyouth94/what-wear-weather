@@ -2,8 +2,9 @@ import styled from '@emotion/styled';
 
 import fontTheme from '@/styles/fontTheme';
 import { motion } from 'framer-motion';
+import { Dialog } from '@headlessui/react';
 
-export const Modal = styled(motion.div)`
+export const Modal = styled(motion(Dialog))`
   @media (min-width: 640px) {
     left: 50%;
     transform: translate(-50%);
@@ -22,7 +23,7 @@ export const Modal = styled(motion.div)`
   height: 100dvh;
 `;
 
-export const ModalContents = styled(motion.div)`
+export const ModalContents = styled(motion(Dialog.Panel))`
   position: absolute;
   top: 0;
   right: 0;

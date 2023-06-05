@@ -21,7 +21,7 @@ const SettingModal = () => {
   };
 
   return (
-    <Modal isOpen={isOpen}>
+    <Modal open={isOpen} onClose={handleClickCloseButton}>
       <Modal.Contents>
         <S.CloseContainer>
           <IconClose onClick={handleClickCloseButton} />
@@ -42,7 +42,7 @@ const SettingModal = () => {
         </S.ContextContainer>
       </Modal.Contents>
 
-      <Modal.Overlay onClick={handleClickCloseButton} />
+      <Modal.Overlay />
     </Modal>
   );
 };

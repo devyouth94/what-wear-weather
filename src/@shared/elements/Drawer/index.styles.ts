@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
+import { Dialog } from '@headlessui/react';
 import { motion } from 'framer-motion';
 
-export const Drawer = styled(motion.div)`
+export const Drawer = styled(motion(Dialog.Panel))`
   @media (min-width: 640px) {
     left: 50%;
     transform: translateX(-50%);
@@ -23,7 +24,7 @@ export const Drawer = styled(motion.div)`
   background-color: ${({ theme }) => theme.colors.main_01};
 `;
 
-export const DrawerHeader = styled.header`
+export const DrawerHeader = styled(Dialog.Title)`
   position: fixed;
   left: 0;
   right: 0;
@@ -40,7 +41,7 @@ export const DrawerHeader = styled.header`
   background-color: ${({ theme }) => theme.colors.main_01};
 `;
 
-export const DrawerBody = styled.main`
+export const DrawerBody = styled(Dialog.Description)`
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -62,7 +63,7 @@ export const DrawerBody = styled.main`
   }
 `;
 
-export const DrawerBottom = styled.nav`
+export const DrawerBottom = styled.div`
   position: fixed;
   left: 0;
   right: 0;

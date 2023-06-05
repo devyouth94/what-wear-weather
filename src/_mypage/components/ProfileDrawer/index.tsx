@@ -41,7 +41,7 @@ const ProfileDrawer = ({ data }: Props) => {
   };
 
   return (
-    <Drawer isOpen={isOpen}>
+    <Drawer open={isOpen} onClose={handleClickCloseButton}>
       <Drawer.Header>프로필 설정</Drawer.Header>
 
       <Drawer.Body>

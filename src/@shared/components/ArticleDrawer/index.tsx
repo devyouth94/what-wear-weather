@@ -26,7 +26,7 @@ const ArticleDrawer = () => {
   return (
     <>
       {articleData && (
-        <Drawer isOpen={isOpen}>
+        <Drawer open={isOpen} onClose={handleClickCloseButton}>
           <Drawer.Header>{longNowTime(articleData.createdAt).split('일')[0]}일</Drawer.Header>
 
           <Drawer.Body>

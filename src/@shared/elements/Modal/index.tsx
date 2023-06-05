@@ -6,17 +6,21 @@ import Overlay from '@/@shared/elements/Overlay';
 import * as S from './index.styles';
 
 interface Props {
-  isOpen: boolean;
+  open: boolean;
+  onClose: () => void;
 }
 
-const Modal = ({ children, isOpen }: React.PropsWithChildren<Props>) => {
+const Modal = ({ children, open, onClose }: React.PropsWithChildren<Props>) => {
   return (
     <AnimatePresence>
-      {isOpen && (
-        <S.Modal initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-          {children}
-        </S.Modal>
-      )}
+      <S.Modal
+        open={open}
+        onClose={onClose}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}>
+        {children}
+      </S.Modal>
     </AnimatePresence>
   );
 };

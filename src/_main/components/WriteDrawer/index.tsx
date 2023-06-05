@@ -70,7 +70,7 @@ const WriteDrawer = ({ location }: Props) => {
   return (
     <>
       {liveWeatherData && dailyWeatherData && (
-        <Drawer isOpen={isOpen}>
+        <Drawer open={isOpen} onClose={handleClickCloseButton}>
           <Drawer.Header>오늘의 옷 등록</Drawer.Header>
 
           <Drawer.Body>
