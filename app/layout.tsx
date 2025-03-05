@@ -11,7 +11,11 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: PropsWithChildren) => {
   return (
     <html lang="ko">
-      <body>{children}</body>
+      <body className="bg-yellow-50">
+        <main className="absolute left-1/2 top-0 min-h-dvh w-full max-w-md -translate-x-1/2 bg-green-200">
+          {children}
+        </main>
+      </body>
     </html>
   );
 };
