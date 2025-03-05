@@ -9,7 +9,7 @@ const KakaoLoginButton = () => {
     await supabase.auth.signInWithOAuth({
       provider: 'kakao',
       options: {
-        redirectTo: `${window.location.origin}/auth/callback?next=/weather`,
+        redirectTo: `${window.location.origin}/auth/callback`,
       },
     });
   };
