@@ -35,6 +35,7 @@ export const updateSession = async (request: NextRequest) => {
     data: { user },
   } = await supabase.auth.getUser();
 
+  // 로그인하지 않은 사용자가 보호된 경로에 접근 시 /login으로 리다이렉트
   if (
     !user &&
     !request.nextUrl.pathname.startsWith('/login') &&
@@ -43,6 +44,13 @@ export const updateSession = async (request: NextRequest) => {
   ) {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
+    return NextResponse.redirect(url);
+  }
+
+  // 로그인된 사용자가 /login에 접근 시 /weather로 리다이렉트
+  if (user && request.nextUrl.pathname.startsWith('/login')) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/weather';
     return NextResponse.redirect(url);
   }
 
