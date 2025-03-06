@@ -24,7 +24,7 @@ export const getUltraShortTermForecast = async (
   const baseDate = new Date();
 
   const response = await fetch(
-    `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=${process.env.NEXT_PUBLIC_KMA_API_KEY}&pageNo=1&numOfRows=8&dataType=JSON&base_date=${format(baseDate, 'yyyyMMdd')}&base_time=${getPreviousHalfHour(baseDate)}&nx=${x}&ny=${y}`,
+    `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=${process.env.NEXT_PUBLIC_KMA_API_KEY}&pageNo=1&numOfRows=8&dataType=JSON&base_date=${format(baseDate, 'yyyyMMdd')}&base_time=${getPreviousHalfHour(baseDate)}&nx=${x}&ny=${y}`,
   );
 
   return response.json();
