@@ -1,43 +1,51 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { format } from 'date-fns';
 
-import { getAddressByLatLng } from '~/src/apis/geocoding';
-import { getUltraShortTermForecast } from '~/src/apis/weather';
-import { convertLatLngToXY } from '~/src/utils/convert-coordination';
-import { convertAddressToRegionCode } from '~/src/utils/convert-region-code';
+import {
+  getCurrentForecast,
+  getCurrentWeather,
+  type GetCurrentWeatherResponse,
+  type GetForecastResponse,
+} from '~/src/apis/weather';
+import useGeolocation from '~/src/hooks/use-geolocation';
 
 const Weather = () => {
+  const { latAndLng } = useGeolocation();
+
+  const [currentWeather, setCurrentWeather] =
+    useState<GetCurrentWeatherResponse | null>(null);
+  const [forecast, setForecast] = useState<GetForecastResponse | null>(null);
+
   useEffect(() => {
-    if (!navigator.geolocation) {
-      console.error('이 브라우저는 위치 정보를 지원하지 않습니다.');
-      return;
-    }
+    if (!latAndLng) return;
 
-    navigator.geolocation.getCurrentPosition(
-      async ({ coords }) => {
-        const { latitude, longitude } = coords;
+    const baseDate = format(new Date(), 'yyyy-MM-dd HH:mm');
 
-        const { x, y } = convertLatLngToXY(latitude, longitude);
+    (async () => {
+      const data = await getCurrentWeather(
+        latAndLng.latitude,
+        latAndLng.longitude,
+        baseDate,
+      );
 
-        const data = await getUltraShortTermForecast(x, y);
-        console.log(data.response.body.items.item);
+      setCurrentWeather(data);
+    })();
 
-        try {
-          const data = await getAddressByLatLng(latitude, longitude);
+    (async () => {
+      const data = await getCurrentForecast(
+        latAndLng.latitude,
+        latAndLng.longitude,
+        baseDate,
+      );
 
-          const addressName = data.documents[1].address_name;
-          const regionCode = convertAddressToRegionCode(addressName);
-          console.log({ x, y, addressName, regionCode });
-        } catch (error) {
-          console.error(error);
-        }
-      },
-      (error) => {
-        console.error(error.message);
-      },
-    );
-  }, []);
+      setForecast(data);
+    })();
+  }, [latAndLng]);
+
+  console.log('currentWeather', currentWeather);
+  console.log('forecast', forecast);
 
   return <div>Weather</div>;
 };
