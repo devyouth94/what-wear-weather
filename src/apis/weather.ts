@@ -15,12 +15,16 @@ export type GetCurrentWeatherResponse = {
   temp_max: number;
 };
 
-export type GetForecastResponse = Array<{
-  day: number;
-  temp_min: number;
-  temp_max: number;
-  weather: string;
-}>;
+export type GetForecastResponse = {
+  data: Array<{
+    day: number;
+    temp_min: number;
+    temp_max: number;
+    weather: string;
+  }>;
+  temp_week_min: number;
+  temp_week_max: number;
+};
 
 export type GetUltraSrtNcstResponse = {
   response: {
@@ -105,7 +109,7 @@ export const getCurrentWeather = async (
   return response.json();
 };
 
-export const getCurrentForecast = async (
+export const getForecast = async (
   latitude: number,
   longitude: number,
   baseDate: string,

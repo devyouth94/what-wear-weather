@@ -50,7 +50,7 @@ export const GET = async (request: NextRequest) => {
     const midTaData = midTaResponse.response.body.items.item;
     const midLandFcstData = midLandFcstResponse.response.body.items.item;
 
-    const returnResponse: GetForecastResponse = [
+    const forecastData: GetForecastResponse['data'] = [
       ...[1, 2, 3, 4].map((day) => ({
         day,
         temp_min: Math.round(Number(vilageFcstData[day - 1].TMN)),
@@ -67,6 +67,12 @@ export const GET = async (request: NextRequest) => {
         weather: midLandFcstData[0][`wf${day - 1}Am`],
       })),
     ];
+
+    const returnResponse: GetForecastResponse = {
+      data: forecastData,
+      temp_week_min: Math.min(...forecastData.map((item) => item.temp_min)),
+      temp_week_max: Math.max(...forecastData.map((item) => item.temp_max)),
+    };
 
     return NextResponse.json(returnResponse, { status: 200 });
   } catch (error) {
