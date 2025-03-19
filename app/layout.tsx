@@ -1,5 +1,6 @@
 import { type PropsWithChildren } from 'react';
 import { type Metadata } from 'next';
+import { Toaster } from 'sonner';
 
 import '~/src/styles/globals.css';
 
@@ -11,7 +12,10 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: PropsWithChildren) => {
   return (
     <html lang="ko">
-      <body className="bg-yellow-50">{children}</body>
+      <body className="bg-yellow-50">
+        <Toaster position="bottom-center" richColors closeButton />
+        {children}
+      </body>
     </html>
   );
 };
