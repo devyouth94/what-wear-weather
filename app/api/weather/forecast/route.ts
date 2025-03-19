@@ -2,12 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server';
 
 import { vilageFcstAdapter } from '~/src/adapters/weather';
 import { getAddressByLatLng } from '~/src/apis/geocoding';
-import {
-  type GetForecastResponse,
-  getMidLandFcst,
-  getMidTa,
-  getVilageFcst,
-} from '~/src/apis/weather';
+import { getMidLandFcst, getMidTa, getVilageFcst } from '~/src/apis/weather';
 import { convertLatLngToXY } from '~/src/utils/coordinate';
 import {
   convertAddressToLandForecastCode,
@@ -23,7 +18,7 @@ export const GET = async (request: NextRequest) => {
 
   if (!latitude || !longitude || !baseDate) {
     return NextResponse.json(
-      { error: '위치 정보가 필요합니다.' },
+      { message: '위치 정보가 필요합니다.' },
       { status: 400 },
     );
   }
@@ -50,7 +45,7 @@ export const GET = async (request: NextRequest) => {
     const midTaData = midTaResponse.response.body.items.item;
     const midLandFcstData = midLandFcstResponse.response.body.items.item;
 
-    const forecastData: GetForecastResponse['data'] = [
+    const forecastData = [
       ...[1, 2, 3, 4].map((day) => ({
         day,
         temp_min: Math.round(Number(vilageFcstData[day - 1].TMN)),
@@ -68,7 +63,7 @@ export const GET = async (request: NextRequest) => {
       })),
     ];
 
-    const returnResponse: GetForecastResponse = {
+    const returnResponse = {
       data: forecastData,
       temp_week_min: Math.min(...forecastData.map((item) => item.temp_min)),
       temp_week_max: Math.max(...forecastData.map((item) => item.temp_max)),
@@ -79,7 +74,7 @@ export const GET = async (request: NextRequest) => {
     console.error('예보 정보 오류:', error);
 
     return NextResponse.json(
-      { error: '예보 정보를 불러오지 못했습니다.' },
+      { message: '예보 정보를 불러오지 못했습니다.' },
       { status: 500 },
     );
   }

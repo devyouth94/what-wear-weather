@@ -7,7 +7,6 @@ import {
 } from '~/src/adapters/weather';
 import { getAddressByLatLng } from '~/src/apis/geocoding';
 import {
-  type GetCurrentWeatherResponse,
   getUltraSrtFcst,
   getUltraSrtNcst,
   getVilageFcst,
@@ -26,7 +25,7 @@ export const GET = async (request: NextRequest) => {
 
   if (!latitude || !longitude || !baseDate) {
     return NextResponse.json(
-      { error: '위치 정보가 필요합니다.' },
+      { message: '위치 정보가 필요합니다.' },
       { status: 400 },
     );
   }
@@ -51,7 +50,7 @@ export const GET = async (request: NextRequest) => {
     const ultraSrtFcstData = ultraSrtFcstAdapter(ultraSrtFcstResponse);
     const vilageFcstData = vilageFcstAdapter(vilageFcstResponse);
 
-    const returnResponse: GetCurrentWeatherResponse = {
+    const returnResponse = {
       location: addressResponse.documents[0].address_name,
       weather: convertCodeToWeather(ultraSrtFcstData, ultraSrtNcstData.PTY),
       temp: Math.round(Number(ultraSrtNcstData.T1H)),
@@ -70,7 +69,7 @@ export const GET = async (request: NextRequest) => {
     console.error('실시간 날씨 정보 오류:', error);
 
     return NextResponse.json(
-      { error: '실시간 날씨 정보를 불러오지 못했습니다.' },
+      { message: '실시간 날씨 정보를 불러오지 못했습니다.' },
       { status: 500 },
     );
   }

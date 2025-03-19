@@ -6,26 +6,6 @@ export type UltraSrtNcstCategory = 'T1H' | 'REH' | 'WSD' | 'PTY';
 export type UltraSrtFcstCategory = 'SKY';
 export type VilageFcstCategory = 'TMX' | 'TMN' | 'SKY' | 'PTY';
 
-export type GetCurrentWeatherResponse = {
-  location: string;
-  weather: string;
-  temp: number;
-  temp_feels: number;
-  temp_min: number;
-  temp_max: number;
-};
-
-export type GetForecastResponse = {
-  data: Array<{
-    day: number;
-    temp_min: number;
-    temp_max: number;
-    weather: string;
-  }>;
-  temp_week_min: number;
-  temp_week_max: number;
-};
-
 export type GetUltraSrtNcstResponse = {
   response: {
     body: {
@@ -93,37 +73,7 @@ type GetMidLandFcstResponse = {
   };
 };
 
-export const getCurrentWeather = async (
-  latitude: number,
-  longitude: number,
-  baseDate: string,
-): Promise<GetCurrentWeatherResponse> => {
-  const url = '/api/weather/current';
-  const params = new URLSearchParams([
-    ['latitude', latitude.toString()],
-    ['longitude', longitude.toString()],
-    ['baseDate', baseDate],
-  ]);
-
-  const response = await fetch(`${url}?${params.toString()}`);
-  return response.json();
-};
-
-export const getForecast = async (
-  latitude: number,
-  longitude: number,
-  baseDate: string,
-) => {
-  const url = '/api/weather/forecast';
-  const params = new URLSearchParams([
-    ['latitude', latitude.toString()],
-    ['longitude', longitude.toString()],
-    ['baseDate', baseDate],
-  ]);
-
-  const response = await fetch(`${url}?${params.toString()}`);
-  return response.json();
-};
+const TEN_MINUTES = 60 * 1000 * 10;
 
 const serviceKey = process.env.NEXT_PUBLIC_KMA_API_KEY!;
 
@@ -146,7 +96,9 @@ export const getUltraSrtNcst = async (
     ['ny', y.toString()],
   ]);
 
-  const response = await fetch(`${url}?${params.toString()}`);
+  const response = await fetch(`${url}?${params.toString()}`, {
+    next: { revalidate: TEN_MINUTES },
+  });
   return response.json();
 };
 
@@ -169,7 +121,9 @@ export const getUltraSrtFcst = async (
     ['ny', y.toString()],
   ]);
 
-  const response = await fetch(`${url}?${params.toString()}`);
+  const response = await fetch(`${url}?${params.toString()}`, {
+    next: { revalidate: TEN_MINUTES },
+  });
   return response.json();
 };
 
@@ -192,7 +146,9 @@ export const getVilageFcst = async (
     ['ny', y.toString()],
   ]);
 
-  const response = await fetch(`${url}?${params.toString()}`);
+  const response = await fetch(`${url}?${params.toString()}`, {
+    next: { revalidate: TEN_MINUTES },
+  });
   return response.json();
 };
 
@@ -211,7 +167,9 @@ export const getMidTa = async (
     ['tmFc', `${format(baseDate, 'yyyyMMdd')}0600`],
   ]);
 
-  const response = await fetch(`${url}?${params.toString()}`);
+  const response = await fetch(`${url}?${params.toString()}`, {
+    next: { revalidate: TEN_MINUTES },
+  });
   return response.json();
 };
 
@@ -231,6 +189,8 @@ export const getMidLandFcst = async (
     ['tmFc', `${format(baseDate, 'yyyyMMdd')}0600`],
   ]);
 
-  const response = await fetch(`${url}?${params.toString()}`);
+  const response = await fetch(`${url}?${params.toString()}`, {
+    next: { revalidate: TEN_MINUTES },
+  });
   return response.json();
 };

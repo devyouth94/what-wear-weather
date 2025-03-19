@@ -1,30 +1,11 @@
-import { useEffect, useState } from 'react';
-
-import { getForecast, type GetForecastResponse } from '~/src/apis/weather';
 import { Card, CardContent } from '~/src/components/ui/card';
 import ForecastItem from '~/src/components/weather/forecast-item';
+import useGetForecast from '~/src/queries/use-get-forecast';
 
-type Props = {
-  latitude: number;
-  longitude: number;
-  baseDate: string;
-};
+const Forecast = () => {
+  const { data: forecast, isLoading, error } = useGetForecast();
 
-const Forecast = ({ latitude, longitude, baseDate }: Props) => {
-  const [forecast, setForecast] = useState<GetForecastResponse | null>(null);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const data = await getForecast(latitude, longitude, baseDate);
-        setForecast(data);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, [latitude, longitude, baseDate]);
-
-  if (forecast === null) {
+  if (isLoading) {
     return (
       <Card>
         <div>loading...</div>
@@ -32,19 +13,28 @@ const Forecast = ({ latitude, longitude, baseDate }: Props) => {
     );
   }
 
+  if (error) {
+    return (
+      <Card>
+        <div>{error.message}</div>
+      </Card>
+    );
+  }
+
   return (
     <Card>
-      <CardContent className="py-3">
-        {forecast.data.map((item) => (
-          <ForecastItem
-            key={item.day}
-            {...item}
-            temp_week_min={forecast.temp_week_min}
-            temp_week_max={forecast.temp_week_max}
-            baseDate={baseDate}
-          />
-        ))}
-      </CardContent>
+      {forecast && (
+        <CardContent className="py-3">
+          {forecast.data.map((item) => (
+            <ForecastItem
+              key={item.day}
+              {...item}
+              temp_week_min={forecast.temp_week_min}
+              temp_week_max={forecast.temp_week_max}
+            />
+          ))}
+        </CardContent>
+      )}
     </Card>
   );
 };

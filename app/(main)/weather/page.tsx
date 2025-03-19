@@ -1,29 +1,30 @@
 'use client';
 
-import { format } from 'date-fns';
+import { useEffect } from 'react';
 
 import CurrentWeather from '~/src/components/weather/current-weather';
 import Forecast from '~/src/components/weather/forecast';
-import useGeolocation from '~/src/hooks/use-geolocation';
+import { useGeolocation } from '~/src/contexts/geolocation-provider';
 
 const Weather = () => {
-  const { isLoading, latAndLng } = useGeolocation();
-  const baseDate = format(new Date(), 'yyyy-MM-dd HH:mm');
+  const { isLoading, error, refreshGeolocation } = useGeolocation();
+
+  useEffect(() => {
+    refreshGeolocation();
+  }, [refreshGeolocation]);
 
   if (isLoading) {
     return <>Loading...</>;
   }
 
-  const { latitude, longitude } = latAndLng!;
+  if (!isLoading && error) {
+    return <>{error}</>;
+  }
 
   return (
     <>
-      <CurrentWeather
-        latitude={latitude}
-        longitude={longitude}
-        baseDate={baseDate}
-      />
-      <Forecast latitude={latitude} longitude={longitude} baseDate={baseDate} />
+      <CurrentWeather />
+      <Forecast />
     </>
   );
 };

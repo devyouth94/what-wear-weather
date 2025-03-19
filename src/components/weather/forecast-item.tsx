@@ -9,7 +9,6 @@ type Props = {
   temp_week_min: number;
   temp_week_max: number;
   weather: string;
-  baseDate: string;
 };
 
 const ForecastItem = ({
@@ -19,14 +18,13 @@ const ForecastItem = ({
   temp_week_min,
   temp_week_max,
   weather,
-  baseDate,
 }: Props) => {
   const getDayText = () => {
     if (day === 1) {
       return '오늘';
     }
 
-    const today = new Date(baseDate);
+    const today = new Date(format(new Date(), 'yyyy-MM-dd HH:mm'));
     const targetDate = addDays(today, day - 1);
 
     return format(targetDate, 'EEE', { locale: ko });
