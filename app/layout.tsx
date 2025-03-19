@@ -2,6 +2,8 @@ import { type PropsWithChildren } from 'react';
 import { type Metadata } from 'next';
 import { Toaster } from 'sonner';
 
+import TanstackQueryProvider from '~/src/providers/tanstack-query';
+
 import '~/src/styles/globals.css';
 
 export const metadata: Metadata = {
@@ -13,8 +15,10 @@ const RootLayout = ({ children }: PropsWithChildren) => {
   return (
     <html lang="ko">
       <body className="bg-yellow-50">
-        <Toaster position="bottom-center" richColors closeButton />
-        {children}
+        <TanstackQueryProvider>
+          <Toaster position="bottom-center" richColors closeButton />
+          {children}
+        </TanstackQueryProvider>
       </body>
     </html>
   );
