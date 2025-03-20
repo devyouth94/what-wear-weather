@@ -97,6 +97,9 @@ export const getUltraSrtNcst = async (
   ]);
 
   const response = await fetch(`${url}?${params.toString()}`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
     next: { revalidate: TEN_MINUTES },
   });
   return response.json();
@@ -122,6 +125,9 @@ export const getUltraSrtFcst = async (
   ]);
 
   const response = await fetch(`${url}?${params.toString()}`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
     next: { revalidate: TEN_MINUTES },
   });
   return response.json();
@@ -147,6 +153,9 @@ export const getVilageFcst = async (
   ]);
 
   const response = await fetch(`${url}?${params.toString()}`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
     next: { revalidate: TEN_MINUTES },
   });
   return response.json();
@@ -168,6 +177,9 @@ export const getMidTa = async (
   ]);
 
   const response = await fetch(`${url}?${params.toString()}`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
     next: { revalidate: TEN_MINUTES },
   });
   return response.json();
