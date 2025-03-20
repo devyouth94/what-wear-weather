@@ -14,8 +14,6 @@ export type GetForecastResponse = {
   temp_week_max: number;
 };
 
-const TEN_MINUTES = 60 * 1000 * 10;
-
 const useGetForecast = () => {
   const { geolocation } = useGeolocation();
 
@@ -32,7 +30,7 @@ const useGetForecast = () => {
       ]);
 
       const response = await fetch(`${url}?${params.toString()}`, {
-        next: { revalidate: TEN_MINUTES },
+        next: { revalidate: 600 },
       });
 
       if (!response.ok) {

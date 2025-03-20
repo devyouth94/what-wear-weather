@@ -12,8 +12,6 @@ export type GetCurrentWeatherResponse = {
   temp_max: number;
 };
 
-const TEN_MINUTES = 60 * 1000 * 10;
-
 const useGetCurrentWeather = () => {
   const { geolocation } = useGeolocation();
 
@@ -30,7 +28,7 @@ const useGetCurrentWeather = () => {
       ]);
 
       const response = await fetch(`${url}?${params.toString()}`, {
-        next: { revalidate: TEN_MINUTES },
+        next: { revalidate: 600 },
       });
 
       if (!response.ok) {

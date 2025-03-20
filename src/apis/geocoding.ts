@@ -2,7 +2,7 @@ type GetAddressByLatLngResponse = {
   documents: Array<{ address_name: string }>;
 };
 
-const A_WEEK = 60 * 1000 * 60 * 24 * 7;
+const A_WEEK = 60 * 60 * 24 * 7;
 
 export const getAddressByLatLng = async (
   latitude: number,

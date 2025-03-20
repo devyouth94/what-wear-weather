@@ -73,7 +73,7 @@ type GetMidLandFcstResponse = {
   };
 };
 
-const TEN_MINUTES = 60 * 1000 * 10;
+const TEN_MINUTES = 600;
 
 const serviceKey = process.env.NEXT_PUBLIC_KMA_API_KEY!;
 
