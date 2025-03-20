@@ -1,10 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
-const useCreateOutfit = () => {
+const useCreateOutfitToday = () => {
   return useMutation({
     mutationFn: async (data: FormData) => {
-      const url = '/api/outfit';
+      const url = '/api/outfit/today';
 
       const response = await fetch(url, {
         method: 'POST',
@@ -27,4 +27,4 @@ const useCreateOutfit = () => {
   });
 };
 
-export default useCreateOutfit;
+export default useCreateOutfitToday;

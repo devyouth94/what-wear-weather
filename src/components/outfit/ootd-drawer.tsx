@@ -27,7 +27,7 @@ import {
 } from '~/src/components/ui/form';
 import { Textarea } from '~/src/components/ui/textarea';
 import { useGeolocation } from '~/src/contexts/geolocation-provider';
-import useCreateOutfit from '~/src/queries/use-create-outfit';
+import useCreateOutfitToday from '~/src/queries/use-create-outfit-today';
 import useGetCurrentWeather, {
   type GetCurrentWeatherResponse,
 } from '~/src/queries/use-get-current-weather';
@@ -53,7 +53,7 @@ export type CreateOOTDForm = z.infer<typeof formSchema>;
 const OOTDDrawer = () => {
   const { isLoading: isGeolocationLoading } = useGeolocation();
   const { data: currentWeather, isLoading } = useGetCurrentWeather();
-  const { mutate: createOutfit } = useCreateOutfit();
+  const { mutate: createOutfitToday } = useCreateOutfitToday();
 
   const [open, setOpen] = useState(false);
 
@@ -86,7 +86,7 @@ const OOTDDrawer = () => {
       formData.append('description', data.description);
     }
 
-    createOutfit(formData, {
+    createOutfitToday(formData, {
       onSuccess: () => handleOpenChange(false),
     });
   };
