@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 
+import OOTDContainer from '~/src/components/outfit/ootd-container';
 import CurrentWeather from '~/src/components/weather/current-weather';
 import Forecast from '~/src/components/weather/forecast';
 import { useGeolocation } from '~/src/contexts/geolocation-provider';
@@ -24,6 +25,7 @@ const Weather = () => {
   return (
     <>
       <CurrentWeather />
+      <OOTDContainer />
       <Forecast />
     </>
   );
