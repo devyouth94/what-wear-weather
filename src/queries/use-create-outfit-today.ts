@@ -1,7 +1,9 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 const useCreateOutfitToday = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: async (data: FormData) => {
       const url = '/api/outfit/today';
@@ -20,6 +22,7 @@ const useCreateOutfitToday = () => {
     },
     onSuccess: ({ message }) => {
       toast.success(message);
+      queryClient.invalidateQueries({ queryKey: ['outfit-today'] });
     },
     onError: (error) => {
       toast.error(error.message);
