@@ -202,6 +202,9 @@ export const getMidLandFcst = async (
   ]);
 
   const response = await fetch(`${url}?${params.toString()}`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
     next: { revalidate: TEN_MINUTES },
   });
   return response.json();

@@ -1,6 +1,6 @@
 import { revalidatePath } from 'next/cache';
 import { type NextRequest, NextResponse } from 'next/server';
-import { PutObjectCommand } from '@aws-sdk/client-s3';
+import { DeleteObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
 import { endOfDay, startOfDay } from 'date-fns';
 
 import { type GetCurrentWeatherResponse } from '~/src/queries/use-get-current-weather';
@@ -107,6 +107,80 @@ export const POST = async (req: NextRequest) => {
 
     return NextResponse.json(
       { message: '오늘의 옷 등록을 실패했습니다.' },
+      { status: 500 },
+    );
+  }
+};
+
+export const DELETE = async () => {
+  try {
+    const supabase = await createClient();
+
+    const {
+      data: { user },
+      error: userError,
+    } = await supabase.auth.getUser();
+
+    if (userError || !user) {
+      return NextResponse.json(
+        { message: '인증되지 않은 사용자입니다.' },
+        { status: 401 },
+      );
+    }
+
+    const today = new Date();
+
+    const { data: outfit, error: outfitError } = await supabase
+      .from('outfits')
+      .select('*')
+      .eq('user_id', user.id)
+      .gte('created_at', startOfDay(today).toISOString())
+      .lt('created_at', endOfDay(today).toISOString())
+      .maybeSingle();
+
+    if (outfitError) {
+      throw outfitError;
+    }
+
+    if (!outfit) {
+      return NextResponse.json(
+        { message: '삭제할 오늘의 옷이 없습니다.' },
+        { status: 404 },
+      );
+    }
+
+    const Key = (outfit.image_url as string).replace(
+      'https://www-image-bucket.s3.ap-northeast-2.amazonaws.com/',
+      '',
+    );
+
+    await s3.send(
+      new DeleteObjectCommand({
+        Bucket: process.env.AWS_BUCKET!,
+        Key,
+      }),
+    );
+
+    const { error: deleteError } = await supabase
+      .from('outfits')
+      .delete()
+      .eq('id', outfit.id);
+
+    if (deleteError) {
+      throw deleteError;
+    }
+
+    revalidatePath('/api/outfit/today');
+
+    return NextResponse.json(
+      { message: '오늘의 옷을 삭제했습니다.' },
+      { status: 200 },
+    );
+  } catch (error) {
+    console.error('오늘의 옷 삭제 중 오류:', error);
+
+    return NextResponse.json(
+      { message: '오늘의 옷 삭제에 실패했습니다.' },
       { status: 500 },
     );
   }
