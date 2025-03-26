@@ -30,9 +30,14 @@ export const useGetOutfitList = (filter: Partial<GetOutfitListParams> = {}) => {
       const url = '/api/outfit/list';
       const params = new URLSearchParams();
 
-      if (temp_min) params.append('temp_min', temp_min.toString());
-      if (temp_max) params.append('temp_max', temp_max.toString());
-      if (month) params.append('month', month.toString());
+      if (!(temp_min === -30 && temp_max === 40)) {
+        if (temp_min) params.append('temp_min', temp_min.toString());
+        if (temp_max) params.append('temp_max', temp_max.toString());
+      }
+
+      if (month) {
+        params.append('month', month.toString());
+      }
       params.append('sort', sort);
       params.append('page', pageParam.toString());
       params.append('limit', '10');
