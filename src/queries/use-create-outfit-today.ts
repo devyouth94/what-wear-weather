@@ -23,6 +23,7 @@ const useCreateOutfitToday = () => {
     onSuccess: ({ message }) => {
       toast.success(message);
       queryClient.invalidateQueries({ queryKey: ['outfit-today'] });
+      queryClient.invalidateQueries({ queryKey: ['outfit-list'] });
     },
     onError: (error) => {
       toast.error(error.message);
