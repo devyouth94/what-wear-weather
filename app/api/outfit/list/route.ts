@@ -43,12 +43,7 @@ export const GET = async (req: NextRequest) => {
     }
 
     if (month) {
-      const targetMonth = Number(month) - 1;
-      query = query.filter(
-        'created_at',
-        'ilike',
-        `%-${String(targetMonth + 1).padStart(2, '0')}-%`,
-      );
+      query = query.eq('created_at_month', Number(month));
     }
 
     const start = (Number(page) - 1) * Number(limit);

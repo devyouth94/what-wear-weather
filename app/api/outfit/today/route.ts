@@ -90,6 +90,7 @@ export const POST = async (req: NextRequest) => {
       location: weather.location,
       image_url: `https://www-image-bucket.s3.ap-northeast-2.amazonaws.com/outfit/${user.id}/${image.name}`,
       description: description || null,
+      created_at_month: new Date().getMonth() + 1,
     });
 
     if (outfitError) {

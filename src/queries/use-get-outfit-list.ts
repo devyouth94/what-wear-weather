@@ -35,9 +35,11 @@ export const useGetOutfitList = (filter: Partial<GetOutfitListParams> = {}) => {
         if (temp_max) params.append('temp_max', temp_max.toString());
       }
 
-      if (month) {
+      //month가 0이면 전체 조회
+      if (month && month !== 0) {
         params.append('month', month.toString());
       }
+
       params.append('sort', sort);
       params.append('page', pageParam.toString());
       params.append('limit', '10');
