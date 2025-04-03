@@ -1,10 +1,12 @@
 import KakaoLoginButton from '~/src/components/kakao-login-button';
+import LogoSmall from '~/src/components/logo-small';
 
 const Login = () => {
   return (
-    <div className="flex h-dvh w-full items-center justify-center">
+    <>
+      <LogoSmall />
       <KakaoLoginButton />
-    </div>
+    </>
   );
 };
 
