@@ -10,7 +10,9 @@ const MainLayout = ({ children }: PropsWithChildren) => {
     <>
       <Header />
       <GeolocationProvider>
-        <Main className="pb-nav pt-header">{children}</Main>
+        <Main className="pb-[calc(var(--height-nav)_+_24px)] pt-header">
+          {children}
+        </Main>
         <Nav />
       </GeolocationProvider>
     </>

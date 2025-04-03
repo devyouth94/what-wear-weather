@@ -4,8 +4,8 @@
 
 @layer base {
   :root {
-    --height-header: 40px;
-    --height-nav: 60px;
+    --height-header: 56px;
+    --height-nav: 56px;
     --radius: 0.5rem;
 
     --background: 0 0% 100%;
