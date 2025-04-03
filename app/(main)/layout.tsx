@@ -10,7 +10,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
     <>
       <Header />
       <GeolocationProvider>
-        <Main className="pb-[calc(var(--height-nav)_+_24px)] pt-header">
+        <Main className="flex flex-col pb-[calc(var(--height-nav)_+_24px)] pt-header">
           {children}
         </Main>
         <Nav />

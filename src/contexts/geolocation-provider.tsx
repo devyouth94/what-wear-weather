@@ -51,7 +51,9 @@ export const GeolocationProvider = ({ children }: PropsWithChildren) => {
       },
       (error) => {
         setIsLoading(false);
-        setError(`위치 정보를 가져오는데 실패했어요. 에러코드: ${error.code}`);
+        setError(
+          `위치 정보를 가져오는데 실패했어요.\n에러코드: ${error.message}`,
+        );
       },
     );
   }, []);
