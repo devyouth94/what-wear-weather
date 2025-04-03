@@ -2,12 +2,17 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
+import Main from '~/src/components/layout/main';
 import LogoLarge from '~/src/components/logo-large';
+import Overlay from '~/src/components/overlay';
+import { MESSAGE } from '~/src/constants/message';
 import { createClient } from '~/src/utils/supabase/client';
 
 const Home = () => {
   const router = useRouter();
+
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -28,7 +33,8 @@ const Home = () => {
           }
         }, 2000);
       } catch (error) {
-        console.log('에러가 발생했어요. 로그인 페이지로 이동합니다.: ', error);
+        toast.error(MESSAGE.ERROR.초기화면);
+        console.error(error);
 
         timer = setTimeout(() => {
           router.push('/login');
@@ -43,15 +49,11 @@ const Home = () => {
 
   return (
     <>
-      {isLoading && (
-        <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/30">
-          <span>Loading...</span>
-        </div>
-      )}
+      <Overlay visible={isLoading} loader />
 
-      <div className="flex h-dvh w-full items-center justify-center">
+      <Main className="flex h-dvh items-center justify-center">
         <LogoLarge />
-      </div>
+      </Main>
     </>
   );
 };

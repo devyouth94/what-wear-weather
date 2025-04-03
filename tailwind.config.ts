@@ -6,6 +6,9 @@ const config: Config = {
   content: ['./app/**/*.{js,ts,jsx,tsx,mdx}', './src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     extend: {
+      animation: {
+        'spin-slow': 'spin 2s linear infinite',
+      },
       spacing: {
         header: 'var(--height-header)',
         nav: 'var(--height-nav)',

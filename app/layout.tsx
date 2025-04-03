@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: PropsWithChildren) => {
   return (
     <html lang="ko">
-      <body className="bg-yellow-50">
+      <body>
         <TanstackQueryProvider>
           <Toaster position="bottom-center" richColors closeButton />
           {children}

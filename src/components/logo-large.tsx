@@ -1,8 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, type MotionProps } from 'framer-motion';
 
-const createAnimationSetting = (fillColor: string) => ({
+const createAnimationSetting = (fillColor: string): MotionProps => ({
   variants: {
     hidden: {
       pathLength: 0,
@@ -22,8 +22,8 @@ const createAnimationSetting = (fillColor: string) => ({
 });
 
 const LogoLarge = () => {
-  const settingSecondary = createAnimationSetting('#F6F1E9');
-  const settingPoint = createAnimationSetting('#E74646');
+  const settingSecondary = createAnimationSetting('#737373');
+  const settingPoint = createAnimationSetting('#ef4444');
 
   return (
     <motion.svg
@@ -109,6 +109,7 @@ const LogoLarge = () => {
         {...settingSecondary}
         d="M212.999 114.928C209.063 114.928 205.799 117.184 204.551 120.784V115.696H197.159V142H205.415V129.28C205.415 124.768 208.391 122.512 212.231 122.512C213.575 122.512 214.679 122.848 215.543 123.232V115.264C214.871 115.072 213.911 114.928 212.999 114.928Z"
       />
+
       <motion.path
         className="path-point"
         {...settingPoint}
