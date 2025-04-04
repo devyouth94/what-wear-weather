@@ -19,19 +19,19 @@ import {
 
 export const GET = async (request: NextRequest) => {
   const { searchParams } = request.nextUrl;
+
   const latitude = searchParams.get('latitude');
   const longitude = searchParams.get('longitude');
-  const baseDate = searchParams.get('baseDate');
 
-  if (!latitude || !longitude || !baseDate) {
+  if (!latitude || !longitude) {
     return NextResponse.json(
-      { message: '위치 정보가 필요합니다.' },
+      { message: '위치 정보가 필요해요.' },
       { status: 400 },
     );
   }
 
   const { x, y } = convertLatLngToXY(Number(latitude), Number(longitude));
-  const date = new Date(baseDate);
+  const date = new Date();
 
   try {
     const [
@@ -40,7 +40,7 @@ export const GET = async (request: NextRequest) => {
       ultraSrtFcstResponse,
       vilageFcstResponse,
     ] = await Promise.all([
-      getAddressByLatLng(Number(latitude), Number(longitude)),
+      getAddressByLatLng(latitude, longitude),
       getUltraSrtNcst(x, y, date),
       getUltraSrtFcst(x, y, date),
       getVilageFcst(x, y, date),
@@ -50,26 +50,28 @@ export const GET = async (request: NextRequest) => {
     const ultraSrtFcstData = ultraSrtFcstAdapter(ultraSrtFcstResponse);
     const vilageFcstData = vilageFcstAdapter(vilageFcstResponse);
 
-    const returnResponse = {
-      location: addressResponse.documents[0].address_name,
-      weather: convertCodeToWeather(ultraSrtFcstData, ultraSrtNcstData.PTY),
-      temp: Math.round(Number(ultraSrtNcstData.T1H)),
-      temp_min: Math.round(Number(vilageFcstData[0].TMN)),
-      temp_max: Math.round(Number(vilageFcstData[0].TMX)),
-      temp_feels: calculateFeelsLikeTemp(
-        Number(ultraSrtNcstData.T1H),
-        Number(ultraSrtNcstData.WSD),
-        Number(ultraSrtNcstData.REH),
-        date,
-      ),
-    };
-
-    return NextResponse.json(returnResponse, { status: 200 });
+    return NextResponse.json(
+      {
+        location: addressResponse.documents[0].address_name,
+        weather: convertCodeToWeather(ultraSrtFcstData, ultraSrtNcstData.PTY),
+        wind_speed: Number(ultraSrtNcstData.WSD),
+        humidity: Number(ultraSrtNcstData.REH),
+        temp: Math.round(Number(ultraSrtNcstData.T1H)),
+        temp_min: Math.round(Number(vilageFcstData[0].TMN)),
+        temp_max: Math.round(Number(vilageFcstData[0].TMX)),
+        temp_feels: calculateFeelsLikeTemp(
+          Number(ultraSrtNcstData.T1H),
+          Number(ultraSrtNcstData.WSD),
+          Number(ultraSrtNcstData.REH),
+        ),
+      },
+      { status: 200 },
+    );
   } catch (error) {
-    console.error('실시간 날씨 정보 오류:', error);
+    console.error('실시간 날씨 정보 조회 오류:', error);
 
     return NextResponse.json(
-      { message: '실시간 날씨 정보를 불러오지 못했습니다.' },
+      { message: '실시간 날씨 정보를 불러오지 못했어요.' },
       { status: 500 },
     );
   }

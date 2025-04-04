@@ -1,4 +1,4 @@
-import { format, subHours } from 'date-fns';
+import { subHours } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { formatInTimeZone } from 'date-fns-tz';
 
@@ -33,7 +33,7 @@ export const getPreviousTime = (
       break;
   }
 
-  return format(resultDate, 'HHmm');
+  return formatInTimeZone(resultDate, 'Asia/Seoul', 'HHmm');
 };
 
 export const formatKoreanTime = (date: string | Date, format: string) => {
