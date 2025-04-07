@@ -1,3 +1,14 @@
+import {
+  Cloud,
+  CloudDrizzle,
+  CloudRain,
+  CloudSnow,
+  CloudSun,
+  CloudSunRain,
+  Snowflake,
+  Sun,
+} from 'lucide-react';
+
 export const SKY_CODE = {
   '1': '맑음',
   '3': '구름많음',
@@ -13,4 +24,15 @@ export const PTY_CODE = {
   '5': '빗방울',
   '6': '빗방울/눈날림',
   '7': '눈날림',
+};
+
+export const WEATHER_ICON = {
+  Sun,
+  CloudSun,
+  CloudSunRain,
+  Cloud,
+  CloudRain,
+  Snowflake,
+  CloudDrizzle,
+  CloudSnow,
 };

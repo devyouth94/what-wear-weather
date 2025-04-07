@@ -97,3 +97,53 @@ export const convertCodeToWeather = (skyCode: string, ptyCode: string) => {
 
   return PTY_CODE[ptyCode as keyof typeof PTY_CODE];
 };
+
+export const convertCodeToIcon = (skyCode: string, ptyCode: string) => {
+  if (ptyCode === '0') {
+    switch (skyCode) {
+      case '1':
+        return 'Sun';
+      case '3':
+        return 'CloudSun';
+      case '4':
+        return 'Cloud';
+    }
+  }
+
+  switch (ptyCode) {
+    case '1':
+      return 'CloudRain';
+    case '2':
+    case '3':
+      return 'Snowflake';
+    case '4':
+    case '5':
+      return 'CloudDrizzle';
+    case '6':
+    case '7':
+      return 'CloudSnow';
+  }
+};
+
+export const convertWeatherToCode = (weather: string) => {
+  switch (weather) {
+    case '맑음':
+      return 'Sun';
+    case '구름많음':
+      return 'CloudSun';
+    case '구름많고 비':
+    case '구름많고 눈':
+    case '구름많고 비/눈':
+    case '구름많고 소나기':
+      return 'CloudSunRain';
+    case '흐림':
+      return 'Cloud';
+    case '흐리고 비':
+    case '흐리고 비/눈':
+      return 'CloudRain';
+    case '흐리고 눈':
+      return 'CloudSnow';
+    case '흐리고 소나기':
+      return 'CloudDrizzle';
+  }
+};

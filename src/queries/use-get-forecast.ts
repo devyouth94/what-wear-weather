@@ -1,7 +1,7 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { format } from 'date-fns';
 
 import { useGeolocation } from '~/src/contexts/geolocation-provider';
+import { get } from '~/src/utils/api';
 
 export type GetForecastResponse = {
   data: Array<{
@@ -16,30 +16,16 @@ export type GetForecastResponse = {
 
 const useGetForecast = () => {
   const { geolocation } = useGeolocation();
+  const { lat, lng } = geolocation!;
 
   return useQuery<GetForecastResponse>({
-    enabled: !!geolocation,
-    placeholderData: keepPreviousData,
     queryKey: ['forecast'],
-    queryFn: async () => {
-      const url = '/api/weather/forecast';
-      const params = new URLSearchParams([
-        ['latitude', geolocation!.lat.toString()],
-        ['longitude', geolocation!.lng.toString()],
-        ['baseDate', format(new Date(), 'yyyy-MM-dd HH:mm')],
-      ]);
-
-      const response = await fetch(`${url}?${params.toString()}`, {
+    queryFn: () =>
+      get<GetForecastResponse>('/api/weather/forecast', {
+        params: { latitude: lat, longitude: lng },
         next: { revalidate: 600 },
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message);
-      }
-
-      return response.json();
-    },
+      }),
+    placeholderData: keepPreviousData,
   });
 };
 

@@ -1,30 +1,35 @@
-import { Card, CardContent } from '~/src/components/ui/card';
+import { RotateCwIcon } from 'lucide-react';
+
+import { Button } from '~/src/components/ui/button';
 import ForecastItem from '~/src/components/weather/forecast-item';
 import useGetForecast from '~/src/queries/use-get-forecast';
+import { cn } from '~/src/utils/class-name';
 
 const Forecast = () => {
-  const { data: forecast, isLoading, error } = useGetForecast();
-
-  if (isLoading) {
-    return (
-      <Card>
-        <div>loading...</div>
-      </Card>
-    );
-  }
-
-  if (error) {
-    return (
-      <Card>
-        <div>{error.message}</div>
-      </Card>
-    );
-  }
+  const { data: forecast, isLoading, error, refetch } = useGetForecast();
 
   return (
-    <Card>
-      {forecast && (
-        <CardContent className="py-3">
+    <div
+      className={cn(
+        'grow',
+        !isLoading && error && 'flex items-center justify-center',
+      )}
+    >
+      {!isLoading && error && (
+        <div className="flex flex-col items-center justify-center gap-2">
+          <p className="text-sm">{error.message}</p>
+          <Button
+            onClick={() => refetch()}
+            size="icon"
+            className="rounded-full"
+          >
+            <RotateCwIcon />
+          </Button>
+        </div>
+      )}
+
+      {!isLoading && !error && forecast && (
+        <div className="px-3">
           {forecast.data.map((item) => (
             <ForecastItem
               key={item.day}
@@ -33,9 +38,9 @@ const Forecast = () => {
               temp_week_max={forecast.temp_week_max}
             />
           ))}
-        </CardContent>
+        </div>
       )}
-    </Card>
+    </div>
   );
 };
 

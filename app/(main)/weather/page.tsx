@@ -31,7 +31,7 @@ const Weather = () => {
       )}
 
       {!isLoading && geolocation && (
-        <section className="space-y-3 px-3">
+        <section className="flex grow flex-col gap-3 px-3">
           <CurrentWeather />
           <OOTDContainer />
           <Forecast />
