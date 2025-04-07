@@ -39,7 +39,7 @@ const CurrentWeather = () => {
         </div>
       )}
 
-      {!isLoading && currentWeather && (
+      {!isLoading && !error && currentWeather && (
         <div className="flex h-full w-full flex-col justify-between">
           <p className="flex items-center gap-0.5">
             <MapPinIcon size={14} />
