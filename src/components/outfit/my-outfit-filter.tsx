@@ -55,14 +55,14 @@ const MyOutfitFilter = () => {
 
   const { control, handleSubmit: onSubmit, reset } = form;
 
-  console.log(form.formState.errors);
-
   const [open, setOpen] = useState(false);
 
   const handleOpenChange = (open: boolean) => {
     setOpen(open);
 
-    if (!open) {
+    const isEmptyFilter = Object.keys(filter).length === 0;
+
+    if (!open && isEmptyFilter) {
       reset();
     }
   };
@@ -86,7 +86,7 @@ const MyOutfitFilter = () => {
   };
 
   return (
-    <div className="border-box flex justify-end p-2">
+    <div className="flex justify-end p-3">
       <Dialog open={open} onOpenChange={handleOpenChange}>
         <DialogTrigger asChild>
           <Button variant="outline" size="icon">
@@ -94,7 +94,7 @@ const MyOutfitFilter = () => {
           </Button>
         </DialogTrigger>
 
-        <DialogContent>
+        <DialogContent className="h-fit">
           <DialogHeader>
             <DialogTitle>필터</DialogTitle>
           </DialogHeader>
@@ -147,7 +147,7 @@ const MyOutfitFilter = () => {
                         <FormLabel>온도</FormLabel>
 
                         <div className="grid grid-cols-[30px_auto_30px] items-center gap-2">
-                          <span>{field.value.min}</span>
+                          <span>{`${field.value.min}°`}</span>
                           <FormControl>
                             <Slider
                               min={-30}
@@ -163,7 +163,7 @@ const MyOutfitFilter = () => {
                               }}
                             />
                           </FormControl>
-                          <span className="text-right">{field.value.max}</span>
+                          <span className="text-right">{`${field.value.max}°`}</span>
                         </div>
                       </FormItem>
                     );
@@ -184,12 +184,12 @@ const MyOutfitFilter = () => {
                             onValueChange={(value) =>
                               field.onChange(Number(value))
                             }
-                            className="grid grid-cols-5 gap-2"
+                            className="grid grid-cols-4 gap-1"
                           >
                             {[0, ...MONTH_OPTIONS].map((item) => (
                               <FormItem
                                 key={item}
-                                className="flex items-center gap-1 space-y-0"
+                                className="flex items-center gap-1 space-y-0 py-2"
                               >
                                 <FormControl>
                                   <RadioGroupItem value={item.toString()} />

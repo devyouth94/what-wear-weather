@@ -1,4 +1,4 @@
-import { get } from '~/src/utils/api';
+import { kmaApi } from '~/src/utils/api';
 import { formatKoreanTime, getPreviousTime } from '~/src/utils/date';
 
 export type UltraSrtNcstCategory = 'T1H' | 'REH' | 'WSD' | 'PTY';
@@ -78,7 +78,7 @@ const serviceKey = process.env.NEXT_PUBLIC_KMA_API_DECODING_KEY!;
 
 // 초단기 실황 조회
 export const getUltraSrtNcst = async (x: number, y: number, baseDate: Date) =>
-  get<GetUltraSrtNcstResponse>(
+  kmaApi<GetUltraSrtNcstResponse>(
     'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst',
     {
       params: {
@@ -97,7 +97,7 @@ export const getUltraSrtNcst = async (x: number, y: number, baseDate: Date) =>
 
 // 초단기 예보 조회
 export const getUltraSrtFcst = async (x: number, y: number, baseDate: Date) =>
-  get<GetUltraSrtFcstResponse>(
+  kmaApi<GetUltraSrtFcstResponse>(
     'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst',
     {
       params: {
@@ -116,7 +116,7 @@ export const getUltraSrtFcst = async (x: number, y: number, baseDate: Date) =>
 
 // 단기 예보 조회
 export const getVilageFcst = async (x: number, y: number, baseDate: Date) =>
-  get<GetVilageFcstResponse>(
+  kmaApi<GetVilageFcstResponse>(
     'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst',
     {
       params: {
@@ -135,7 +135,7 @@ export const getVilageFcst = async (x: number, y: number, baseDate: Date) =>
 
 // 중기 기온 조회
 export const getMidTa = async (regId: string, baseDate: Date) =>
-  get<GetMidTaResponse>(
+  kmaApi<GetMidTaResponse>(
     'https://apis.data.go.kr/1360000/MidFcstInfoService/getMidTa',
     {
       params: {
@@ -152,7 +152,7 @@ export const getMidTa = async (regId: string, baseDate: Date) =>
 
 // 중기 육상 예보 조회
 export const getMidLandFcst = async (regId: string, baseDate: Date) =>
-  get<GetMidLandFcstResponse>(
+  kmaApi<GetMidLandFcstResponse>(
     'https://apis.data.go.kr/1360000/MidFcstInfoService/getMidLandFcst',
     {
       params: {

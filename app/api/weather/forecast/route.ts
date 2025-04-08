@@ -12,6 +12,7 @@ import { convertCodeToIcon, convertWeatherToCode } from '~/src/utils/weather';
 
 export const GET = async (request: NextRequest) => {
   const { searchParams } = request.nextUrl;
+
   const latitude = searchParams.get('latitude');
   const longitude = searchParams.get('longitude');
 
@@ -68,10 +69,11 @@ export const GET = async (request: NextRequest) => {
       { status: 200 },
     );
   } catch (error) {
-    console.error('예보 정보 조회 오류:', error);
-
     return NextResponse.json(
-      { message: '예보 정보를 불러오지 못했습니다.' },
+      {
+        message: '예보 정보를 불러오지 못했어요.',
+        reason: (error as Error).message,
+      },
       { status: 500 },
     );
   }

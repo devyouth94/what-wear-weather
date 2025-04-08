@@ -1,24 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
+import { del } from '~/src/utils/api';
+
 const useDeleteOutfitToday = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async () => {
-      const url = '/api/outfit/today';
-
-      const response = await fetch(url, {
-        method: 'DELETE',
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw error;
-      }
-
-      return response.json();
-    },
+    mutationFn: () => del('/api/outfit/today'),
     onSuccess: ({ message }) => {
       toast.success(message);
       queryClient.invalidateQueries({ queryKey: ['outfit-today'] });

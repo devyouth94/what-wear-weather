@@ -1,5 +1,7 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
+import { get } from '~/src/utils/api';
+
 export type GetOutfitTodayResponse = {
   created_at: string;
   description: string | null;
@@ -15,22 +17,13 @@ export type GetOutfitTodayResponse = {
 } | null;
 
 const useGetOutfitToday = () => {
-  return useQuery<GetOutfitTodayResponse>({
+  return useQuery({
     placeholderData: keepPreviousData,
     queryKey: ['outfit-today'],
-    queryFn: async () => {
-      const url = '/api/outfit/today';
-      const response = await fetch(url, {
+    queryFn: () =>
+      get<GetOutfitTodayResponse>('/api/outfit/today', {
         next: { revalidate: 600 },
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message);
-      }
-
-      return response.json();
-    },
+      }),
   });
 };
 

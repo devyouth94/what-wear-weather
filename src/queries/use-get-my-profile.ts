@@ -1,5 +1,7 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
+import { get } from '~/src/utils/api';
+
 export type GetMyProfileResponse = {
   id: string;
   email: string;
@@ -8,18 +10,9 @@ export type GetMyProfileResponse = {
 };
 
 export const useGetMyProfile = () => {
-  return useQuery<GetMyProfileResponse>({
-    placeholderData: keepPreviousData,
+  return useQuery({
     queryKey: ['my-profile'],
-    queryFn: async () => {
-      const url = '/api/profile/my';
-      const response = await fetch(url);
-
-      if (!response.ok) {
-        throw new Error('프로필 정보를 불러오는데 실패했습니다.');
-      }
-
-      return response.json();
-    },
+    queryFn: () => get<GetMyProfileResponse>('/api/profile/my'),
+    placeholderData: keepPreviousData,
   });
 };
