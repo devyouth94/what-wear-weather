@@ -40,7 +40,7 @@ const FormImage = ({ field }: Props) => {
 
           <button
             onClick={() => handleChangeImage(undefined)}
-            className="absolute -right-2 -top-3 flex size-6 items-center justify-center rounded-full bg-primary"
+            className="absolute right-2 top-2 z-10 flex size-6 items-center justify-center rounded-full bg-primary"
           >
             <XIcon className="text-muted" size={14} />
           </button>

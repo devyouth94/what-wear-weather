@@ -4,22 +4,18 @@ import { Card, CardContent } from '~/src/components/ui/card';
 import useGetOutfitToday from '~/src/queries/use-get-outfit-today';
 
 const OOTDContainer = () => {
-  const { data: outfitToday, isLoading } = useGetOutfitToday();
-
-  if (isLoading) {
-    return <Card>Loading...</Card>;
-  }
+  const { data: outfitToday } = useGetOutfitToday();
 
   return (
-    <Card>
+    <Card className="aspect-[4/3] w-full">
       {outfitToday === null && (
-        <CardContent className="p-6">
+        <CardContent className="flex h-full items-center justify-center">
           <OOTDDrawer />
         </CardContent>
       )}
 
       {outfitToday && (
-        <CardContent className="relative aspect-video overflow-hidden p-0">
+        <CardContent className="relative h-full">
           <OOTDDialog outfitToday={outfitToday} />
         </CardContent>
       )}

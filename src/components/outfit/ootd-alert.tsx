@@ -22,15 +22,15 @@ const OOTDAlert = ({ onDelete, isDeleting }: Props) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button loading={isDeleting} variant="destructive" className="w-fit">
+        <Button loading={isDeleting} className="w-fit">
           삭제
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>삭제</AlertDialogTitle>
+          <AlertDialogTitle className="hidden">삭제</AlertDialogTitle>
           <AlertDialogDescription>
-            오늘의 옷을 삭제할까요?
+            저장한 옷을 삭제할까요?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

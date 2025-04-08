@@ -1,6 +1,6 @@
 type ApiOptions = {
   params?: Record<string, unknown>;
-} & RequestInit;
+} & Omit<RequestInit, 'method'>;
 
 export const get = async <T>(
   apiUrl: string,
@@ -33,6 +33,21 @@ export const get = async <T>(
   if (!response.ok) {
     const error = await response.json();
     throw new Error(error.message);
+  }
+
+  return response.json();
+};
+
+export const post = async (
+  apiUrl: string,
+  body: BodyInit,
+  options: Omit<RequestInit, 'body' | 'method'> = {},
+) => {
+  const response = await fetch(apiUrl, { ...options, method: 'POST', body });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw error;
   }
 
   return response.json();

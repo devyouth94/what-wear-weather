@@ -1,27 +1,33 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
+import { type CreateOOTDForm } from '~/src/components/outfit/ootd-drawer';
+import useGetCurrentWeather from '~/src/queries/use-get-current-weather';
+import { post } from '~/src/utils/api';
+import { compressImage } from '~/src/utils/image';
+
 const useCreateOutfitToday = () => {
   const queryClient = useQueryClient();
 
+  const { data: currentWeather } = useGetCurrentWeather();
+
   return useMutation({
-    mutationFn: async (data: FormData) => {
-      const url = '/api/outfit/today';
+    mutationFn: async (data: CreateOOTDForm) => {
+      const compressedImage = await compressImage(data.image);
 
-      const response = await fetch(url, {
-        method: 'POST',
-        body: data,
-      });
+      const formData = new FormData();
 
-      if (!response.ok) {
-        const error = await response.json();
-        throw error;
+      formData.append('weather', JSON.stringify(currentWeather));
+      formData.append('image', compressedImage);
+      if (data.description) {
+        formData.append('description', data.description);
       }
 
-      return response.json();
+      return post('/api/outfit/today', formData);
     },
     onSuccess: ({ message }) => {
       toast.success(message);
+
       queryClient.invalidateQueries({ queryKey: ['outfit-today'] });
       queryClient.invalidateQueries({ queryKey: ['outfit-list'] });
     },
