@@ -54,7 +54,7 @@ const CurrentWeather = () => {
                 {currentWeather.weather}
               </span>
               <span className="text-5xl font-black">{`${currentWeather.temp}°`}</span>
-              <span className="ml-0.5 text-sm font-medium">{`최고 ${currentWeather.temp_max}° / 최저 ${currentWeather.temp_min}°`}</span>
+              <span className="ml-0.5 text-sm font-medium">{`최저 ${currentWeather.temp_min}° / 최고 ${currentWeather.temp_max}°`}</span>
             </p>
 
             <div className="flex flex-col gap-0.5">
