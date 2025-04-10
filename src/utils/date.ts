@@ -1,8 +1,9 @@
-import { subHours } from 'date-fns';
+import { format, subDays, subHours } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { formatInTimeZone } from 'date-fns-tz';
 
 type GetPreviousTimeOptions = 'ultraSrtNcst' | 'ultraSrtFcst';
+type GetPreviousDateOptions = 'vilage' | 'mid';
 
 export const getPreviousTime = (
   now: Date,
@@ -36,6 +37,17 @@ export const getPreviousTime = (
   return formatInTimeZone(resultDate, 'Asia/Seoul', 'HHmm');
 };
 
+export const getPreviousDate = (now: Date, options: GetPreviousDateOptions) => {
+  const nowHour = Number(format(now, 'HH'));
+  const optionsHour = options === 'vilage' ? 2 : 6;
+
+  if (nowHour <= optionsHour) {
+    return formatInTimeZone(subDays(now, 1), 'Asia/Seoul', 'yyyyMMdd');
+  }
+
+  return formatInTimeZone(now, 'Asia/Seoul', 'yyyyMMdd');
+};
+
 export const formatKoreanTime = (date: string | Date, format: string) => {
-  return formatInTimeZone(new Date(date), 'Asia/Seoul', format, { locale: ko });
+  return formatInTimeZone(date, 'Asia/Seoul', format, { locale: ko });
 };

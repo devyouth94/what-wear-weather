@@ -1,5 +1,9 @@
 import { kmaApi } from '~/src/utils/api';
-import { formatKoreanTime, getPreviousTime } from '~/src/utils/date';
+import {
+  formatKoreanTime,
+  getPreviousDate,
+  getPreviousTime,
+} from '~/src/utils/date';
 
 export type UltraSrtNcstCategory = 'T1H' | 'REH' | 'WSD' | 'PTY';
 export type UltraSrtFcstCategory = 'SKY';
@@ -122,9 +126,9 @@ export const getVilageFcst = async (x: number, y: number, baseDate: Date) =>
       params: {
         serviceKey,
         pageNo: '1',
-        numOfRows: '932',
+        numOfRows: '1000',
         dataType: 'JSON',
-        base_date: formatKoreanTime(baseDate, 'yyyyMMdd'),
+        base_date: getPreviousDate(baseDate, 'vilage'),
         base_time: '0200',
         nx: x,
         ny: y,
@@ -144,7 +148,7 @@ export const getMidTa = async (regId: string, baseDate: Date) =>
         numOfRows: '1000',
         dataType: 'JSON',
         regId,
-        tmFc: `${formatKoreanTime(baseDate, 'yyyyMMdd')}0600`,
+        tmFc: `${getPreviousDate(baseDate, 'mid')}0600`,
       },
       next: { revalidate: TEN_MINUTES },
     },
@@ -161,7 +165,7 @@ export const getMidLandFcst = async (regId: string, baseDate: Date) =>
         numOfRows: '1000',
         dataType: 'JSON',
         regId,
-        tmFc: `${formatKoreanTime(baseDate, 'yyyyMMdd')}0600`,
+        tmFc: `${getPreviousDate(baseDate, 'mid')}0600`,
       },
       next: { revalidate: TEN_MINUTES },
     },
