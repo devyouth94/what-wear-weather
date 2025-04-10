@@ -25,7 +25,7 @@ export const GET = async () => {
       avatar_url: user.user_metadata.avatar_url || '',
     });
   } catch (error) {
-    console.error('사용자 프로필 정보 조회 중 오류:', error);
+    console.error('프로필 조회 에러:', error);
 
     return NextResponse.json(
       { message: '사용자 프로필 정보를 불러오는데 실패했습니다.' },

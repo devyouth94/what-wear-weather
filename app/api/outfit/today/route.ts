@@ -1,7 +1,7 @@
 import { revalidatePath } from 'next/cache';
 import { type NextRequest, NextResponse } from 'next/server';
 import { DeleteObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
-import { endOfDay, startOfDay } from 'date-fns';
+import { endOfDay, format, startOfDay } from 'date-fns';
 
 import { type GetCurrentWeatherResponse } from '~/src/queries/use-get-current-weather';
 import { s3 } from '~/src/utils/aws';
@@ -31,6 +31,7 @@ export const GET = async () => {
       .eq('user_id', user.id)
       .gte('created_at', startOfDay(today).toISOString())
       .lt('created_at', endOfDay(today).toISOString())
+      .limit(1)
       .maybeSingle();
 
     if (outfitError) {
@@ -39,7 +40,7 @@ export const GET = async () => {
 
     return NextResponse.json(outfit);
   } catch (error) {
-    console.error('오늘의 옷 조회 중 오류:', error);
+    console.error('오늘의 옷 조회 에러:', error);
 
     return NextResponse.json(
       { message: '오늘의 옷 조회에 실패했습니다.' },
@@ -90,7 +91,7 @@ export const POST = async (req: NextRequest) => {
       location: weather.location,
       image_url: `https://www-image-bucket.s3.ap-northeast-2.amazonaws.com/outfit/${user.id}/${image.name}`,
       description: description || null,
-      created_at_month: new Date().getMonth() + 1,
+      created_at_month: Number(format(new Date(), 'MM')),
     });
 
     if (outfitError) {
@@ -137,6 +138,7 @@ export const DELETE = async () => {
       .eq('user_id', user.id)
       .gte('created_at', startOfDay(today).toISOString())
       .lt('created_at', endOfDay(today).toISOString())
+      .limit(1)
       .maybeSingle();
 
     if (outfitError) {
@@ -150,15 +152,13 @@ export const DELETE = async () => {
       );
     }
 
-    const Key = (outfit.image_url as string).replace(
-      'https://www-image-bucket.s3.ap-northeast-2.amazonaws.com/',
-      '',
-    );
-
     await s3.send(
       new DeleteObjectCommand({
         Bucket: process.env.AWS_BUCKET!,
-        Key,
+        Key: (outfit.image_url as string).replace(
+          'https://www-image-bucket.s3.ap-northeast-2.amazonaws.com/',
+          '',
+        ),
       }),
     );
 

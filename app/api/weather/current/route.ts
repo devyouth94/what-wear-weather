@@ -68,6 +68,8 @@ export const GET = async (request: NextRequest) => {
       { status: 200 },
     );
   } catch (error) {
+    console.log('실시간 날씨 에러:', (error as Error).message);
+
     return NextResponse.json(
       {
         message: '실시간 날씨 정보를 불러오지 못했어요.',
